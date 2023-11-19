@@ -1,0 +1,19 @@
+name: Alps-Essentials
+version: '1.1'
+main: com.alpsbte.essentials.AlpsEssentials
+api-version: '1.20'
+
+dependencies:
+  server:
+    LangLibs:
+      required: true
+      load: BEFORE
+      join-classpath: true
+    Alps-Hub:
+      required: false
+      load: AFTER
+      join-classpath: true
+    Alps-Terra:
+      required: false
+      load: AFTER
+      join-classpath: true
