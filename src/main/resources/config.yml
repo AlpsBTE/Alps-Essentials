@@ -1,0 +1,24 @@
+# -----------------------------------------------------
+# |         Alps-Hub Plugin - by Alps BTE
+# -----------------------------------------------------
+# | [Github Repo] https://github.com/AlpsBTE/Hub
+# -----------------------------------------------------
+
+# Chat Formatting
+chat-format:
+  info-prefix: ''
+  alert-prefix: ''
+  arrow: '<dark_gray> » </dark_gray>'
+
+# Spawn
+spawn:
+  world: 'Hub'
+  x: 550.5
+  y: 53
+  z: 576.5
+  pitch: -1.2
+  yaw: 135.3
+
+
+# NOTE: Do not change
+config-version: 1.0

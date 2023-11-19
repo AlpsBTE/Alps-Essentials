@@ -1,0 +1,19 @@
+# -----------------------------------------------------
+# |            Alps-Hub - by Alps BTE
+# -----------------------------------------------------
+# | [Github Repo] https://github.com/AlpsBTE/PlotSystem
+# | [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
+# | [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
+# |
+# | [Formatting] Use %newline% for a newline
+# | [Formatting] Words that are wrapped in the {number} tag are replaced afterward
+# |
+# | English translation by R3tuxn#7169
+# -----------------------------------------------------
+
+teleporting-to-player: 'Teleportiere zum Spieler...'
+teleporting-to-spawn: 'Teleportiere zum Spawn...'
+successfully-reloaded-plugin: 'Plugin erfolgreich neu geladen.'
+
+
+config-version: 1.0
