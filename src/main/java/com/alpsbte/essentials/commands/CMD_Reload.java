@@ -36,7 +36,7 @@ public class CMD_Reload extends BukkitCommand {
 
         if (AlpsEssentials.getPlugin().getServer().getPluginManager().isPluginEnabled("Alps-Terra")) {
             try {
-                Class.forName("com.alpsbte.hub.AlpsTerra").getMethod("reloadPlugin")
+                Class.forName("com.alpsbte.terra.AlpsTerra").getMethod("reloadPlugin")
                         .invoke(this);
             } catch (NoSuchMethodException | ClassNotFoundException |
                      InvocationTargetException | IllegalAccessException ex) {

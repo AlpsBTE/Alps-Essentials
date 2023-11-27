@@ -19,6 +19,29 @@ spawn:
   pitch: -1.2
   yaw: 135.3
 
+# Servers
+servers:
+  plot:
+    plot-name: 'ALPS-1'
+    plot-IP: localhost
+    plot-port: 00000
+  terra:
+    terra-name: 'ALPS-2'
+    terra-IP: localhost
+    terra-port: 00000
+
+# Enable/Disable Commands
+cmd-hub: false
+cmd-spawn: true
+cmd-tpp: true
+cmd-speed: true
+cmd-ptime: true
+cmd-pweather: true
+
+# Others
+right-click-iron-trap-doors: true
+teleport-player-to-spawn-on-join: false
+
 
 # NOTE: Do not change
-config-version: 1.0
+config-version: 1.1

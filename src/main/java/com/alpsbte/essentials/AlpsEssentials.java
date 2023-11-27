@@ -2,27 +2,29 @@ package com.alpsbte.essentials;
 
 import com.alpsbte.alpslib.io.YamlFileFactory;
 import com.alpsbte.alpslib.io.config.ConfigNotImplementedException;
-import com.alpsbte.essentials.commands.CMD_Reload;
-import com.alpsbte.essentials.commands.CMD_Spawn;
-import com.alpsbte.essentials.commands.CMD_TPP;
+import com.alpsbte.essentials.commands.*;
 import com.alpsbte.essentials.utils.ChatUtils;
+import com.alpsbte.essentials.utils.Server;
 import com.alpsbte.essentials.utils.io.ConfigPaths;
 import com.alpsbte.essentials.utils.io.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangUtil;
+import com.google.common.io.ByteStreams;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandMap;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.logging.Level;
 
-public final class AlpsEssentials extends JavaPlugin {
+public final class AlpsEssentials extends JavaPlugin implements PluginMessageListener {
     private static Plugin plugin;
 
     @Override
@@ -45,11 +47,34 @@ public final class AlpsEssentials extends JavaPlugin {
         li.cinnazeyy.langlibs.core.file.YamlFileFactory.registerPlugin(this);
         LangUtil.init();
 
+        // Register bungeecord messaging channels
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+
         // Register Commands
         CommandMap cmdMap = Bukkit.getServer().getCommandMap();
-        cmdMap.register("tpp", new CMD_TPP("tpp"));
-        cmdMap.register("spawn", new CMD_Spawn("spawn"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_HUB))
+            cmdMap.register("hub", new CMD_Hub("hub"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_SPAWN))
+            cmdMap.register("spawn", new CMD_Spawn("spawn"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_TPP))
+            cmdMap.register("tpp", new CMD_TPP("tpp"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_SPEED))
+            cmdMap.register("speed", new CMD_Speed("speed"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_PTIME))
+            cmdMap.register("ptime", new CMD_PTime("ptime"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_PWEATHER))
+            cmdMap.register("pweather", new CMD_PWeather("pweather"));
         cmdMap.register("alpsreload", new CMD_Reload("alpsreload"));
+
+        // Register event listener
+        getServer().getPluginManager().registerEvents(new EventListener(), this);
+    }
+
+    @Override
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] message) {
+        if (!channel.equals("BungeeCord")) return;
+        Server.setPlayerData(ByteStreams.newDataInput(message));
     }
 
     public static Plugin getPlugin() {
@@ -68,6 +93,7 @@ public final class AlpsEssentials extends JavaPlugin {
         ChatUtils.setChatFormat(ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_INFO_PREFIX),
                 ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_ALERT_PREFIX),
                 ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_ARROW));
+        Server.setConfigData();
     }
 
     public static Location getSpawnLocation() {

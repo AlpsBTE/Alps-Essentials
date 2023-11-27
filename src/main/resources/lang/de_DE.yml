@@ -8,11 +8,21 @@
 # | [Formatting] Use %newline% for a newline
 # | [Formatting] Words that are wrapped in the {number} tag are replaced afterward
 # |
-# | English translation by R3tuxn#7169
+# | German translation by R3tuxn#7169
 # -----------------------------------------------------
 
 teleporting-to-player: 'Teleportiere zum Spieler...'
 teleporting-to-spawn: 'Teleportiere zum Spawn...'
+set-player-speed: 'Deine Geschwindigkeit wurde zu {0} geändert.'
+set-player-time: 'Deine Zeit wurde auf {0} gesetzt.'
+set-player-time-synchronized: 'Deine Zeit wurde mit dem Server synchronisiert.'
+set-player-weather: 'Dein Wetter wurde auf {0} gesetzt.'
+set-player-weather-synchronized: 'Dein Wetter wurde mit dem Server synchronisiert.'
+
+connect-to-server: 'Mit Server verbinden'
+connecting-to-server: 'Verbinde mit Server...'
+server-is-offline: 'Server ist offline...'
+
 successfully-reloaded-plugin: 'Plugin erfolgreich neu geladen.'
 
 

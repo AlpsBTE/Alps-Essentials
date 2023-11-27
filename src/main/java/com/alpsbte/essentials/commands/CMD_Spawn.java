@@ -2,6 +2,7 @@ package com.alpsbte.essentials.commands;
 
 import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.utils.ChatUtils;
+import com.alpsbte.essentials.utils.io.ConfigPaths;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import org.bukkit.Sound;
@@ -20,11 +21,13 @@ public class CMD_Spawn extends BukkitCommand {
         this.usageMessage = "/spawn";
         this.setPermission("alpsbte.spawn");
 
-        List<String> aliases = new ArrayList<>();
-        aliases.add("hub");
-        aliases.add("l");
-        aliases.add("lobby");
-        this.setAliases(aliases);
+        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.CMD_HUB)) {
+            List<String> aliases = new ArrayList<>();
+            aliases.add("hub");
+            aliases.add("l");
+            aliases.add("lobby");
+            this.setAliases(aliases);
+        }
     }
 
     @Override

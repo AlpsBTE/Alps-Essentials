@@ -3,7 +3,6 @@ package com.alpsbte.essentials.utils;
 import com.alpsbte.alpslib.utils.AlpsUtils;
 import net.kyori.adventure.text.Component;
 
-import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.GREEN;
 import static net.kyori.adventure.text.format.NamedTextColor.RED;
 
@@ -18,11 +17,11 @@ public class ChatUtils {
     private static Component arrow;
 
     public static Component getInfoMessageFormat(String info) {
-        return infoPrefix.append(arrow).append(text(info, GREEN));
+        return infoPrefix.append(arrow).append(AlpsUtils.deserialize(info).color(GREEN));
     }
 
     public static Component getAlertMessageFormat(String alert) {
-        return alertPrefix.append(arrow).append(text(alert, RED));
+        return alertPrefix.append(arrow).append(AlpsUtils.deserialize(alert).color(RED));
     }
 
     public static Component getArrow() {

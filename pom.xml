@@ -6,7 +6,7 @@
 
     <groupId>com.alpsbte</groupId>
     <artifactId>Alps-Essentials</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>Alps-Essentials</name>
@@ -90,6 +90,10 @@
             <id>alpsbte-repo</id>
             <url>https://mvn.alps-bte.com/repository/alps-bte/</url>
         </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -117,6 +121,13 @@
             <artifactId>alpslib-io</artifactId>
             <version>1.0.37</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>7.0.9</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

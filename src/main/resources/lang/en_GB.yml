@@ -13,6 +13,16 @@
 
 teleporting-to-player: 'Teleporting to player...'
 teleporting-to-spawn: 'Teleporting to spawn...'
+set-player-speed: 'Your speed has been set to {0}.'
+set-player-time: 'Your time has been set to {0}.'
+set-player-time-synchronized: 'Your time has been synchronized with the server.'
+set-player-weather: 'Your weather has been set to {0}.'
+set-player-weather-synchronized: 'Your weather has been synchronized with the server.'
+
+connect-to-server: 'Connect to server'
+connecting-to-server: 'Connecting to server...'
+server-is-offline: 'Server is offline...'
+
 successfully-reloaded-plugin: 'Successfully reloaded plugin.'
 
 
