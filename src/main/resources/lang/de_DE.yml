@@ -22,6 +22,7 @@ set-player-weather-synchronized: 'Dein Wetter wurde mit dem Server synchronisier
 connect-to-server: 'Mit Server verbinden'
 connecting-to-server: 'Verbinde mit Server...'
 server-is-offline: 'Server ist offline...'
+command-usage: 'Verwende'
 
 successfully-reloaded-plugin: 'Plugin erfolgreich neu geladen.'
 

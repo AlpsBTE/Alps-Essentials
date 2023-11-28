@@ -12,6 +12,7 @@ public abstract class LangPaths {
     public static final String CONNECT_TO_SERVER = "connect-to-server";
     public static final String CONNECTING_TO_SERVER = "connecting-to-server";
     public static final String SERVER_IS_OFFLINE = "server-is-offline";
+    public static final String COMMAND_USAGE = "command-usage";
 
     public static final String SUCCESSFULLY_RELOADED_PLUGIN = "successfully-reloaded-plugin";
 }

@@ -4,21 +4,21 @@ import com.alpsbte.alpslib.utils.AlpsUtils;
 import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CMD_PTime extends BukkitCommand implements TabCompleter {
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.NamedTextColor.RED;
+
+public class CMD_PTime extends BukkitCommand {
     private static final List<String> TAB_COMPLETE_ARGS = Arrays.asList("day", "night", "reset");
 
     public CMD_PTime(@NotNull String name) {
@@ -64,13 +64,14 @@ public class CMD_PTime extends BukkitCommand implements TabCompleter {
             }
         }
 
-        player.sendMessage(ChatUtils.getAlertMessageFormat("/ptime <day/night/reset>"));
+        player.sendMessage(ChatUtils.getAlertMessageFormat(LangUtil.getInstance().get(sender, LangPaths.COMMAND_USAGE))
+                .append(text(": /ptime <day/night/reset>", RED)));
         return true;
     }
 
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         final List<String> completions = new ArrayList<>();
         StringUtil.copyPartialMatches(args[0], TAB_COMPLETE_ARGS, completions);
         Collections.sort(completions);

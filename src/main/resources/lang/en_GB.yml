@@ -22,6 +22,7 @@ set-player-weather-synchronized: 'Your weather has been synchronized with the se
 connect-to-server: 'Connect to server'
 connecting-to-server: 'Connecting to server...'
 server-is-offline: 'Server is offline...'
+command-usage: 'Usage'
 
 successfully-reloaded-plugin: 'Successfully reloaded plugin.'
 

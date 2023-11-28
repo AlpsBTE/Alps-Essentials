@@ -33,6 +33,7 @@ servers:
 # Enable/Disable Commands
 cmd-hub: false
 cmd-spawn: true
+cmd-switch: true
 cmd-tpp: true
 cmd-speed: true
 cmd-ptime: true

@@ -57,6 +57,8 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
             cmdMap.register("hub", new CMD_Hub("hub"));
         if (getConfig().getBoolean(ConfigPaths.CMD_SPAWN))
             cmdMap.register("spawn", new CMD_Spawn("spawn"));
+        if (getConfig().getBoolean(ConfigPaths.CMD_SWITCH))
+            cmdMap.register("switch", new CMD_Switch("switch"));
         if (getConfig().getBoolean(ConfigPaths.CMD_TPP))
             cmdMap.register("tpp", new CMD_TPP("tpp"));
         if (getConfig().getBoolean(ConfigPaths.CMD_SPEED))

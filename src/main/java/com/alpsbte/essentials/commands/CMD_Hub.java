@@ -28,7 +28,7 @@ public class CMD_Hub extends BukkitCommand {
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player)sender;
-        ServerUtils.connectToServer(ServerUtils.isOnline(Server.HUB_PLOT), Server.HUB_PLOT, player);
+        ServerUtils.connectToServer(Server.HUB_PLOT, player);
         return true;
     }
 }

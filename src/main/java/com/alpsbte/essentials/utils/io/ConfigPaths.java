@@ -32,6 +32,7 @@ public abstract class ConfigPaths {
     // Commands
     public static final String CMD_HUB = "cmd-hub";
     public static final String CMD_SPAWN = "cmd-spawn";
+    public static final String CMD_SWITCH = "cmd-switch";
     public static final String CMD_TPP = "cmd-tpp";
     public static final String CMD_SPEED = "cmd-speed";
     public static final String CMD_PTIME = "cmd-ptime";
