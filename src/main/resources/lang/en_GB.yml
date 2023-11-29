@@ -1,16 +1,13 @@
-# -----------------------------------------------------
-# |            Alps-Hub - by Alps BTE
-# -----------------------------------------------------
-# | [Github Repo] https://github.com/AlpsBTE/PlotSystem
-# | [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
-# | [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
-# |
-# | [Formatting] Use %newline% for a newline
-# | [Formatting] Words that are wrapped in the {number} tag are replaced afterward
-# |
-# | English translation by R3tuxn#7169
-# -----------------------------------------------------
-
+#-----------------------------------------------------
+#|         Alps-Essentials - by Alps BTE
+#-----------------------------------------------------
+#| [Github Repo] https://github.com/AlpsBTE/PlotSystem
+#| [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
+#| [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
+#|
+#| [Formatting] Use %newline% for a newline
+#| [Formatting] Words that are wrapped in the {number} tag are replaced afterward
+#-----------------------------------------------------
 teleporting-to-player: 'Teleporting to player...'
 teleporting-to-spawn: 'Teleporting to spawn...'
 set-player-speed: 'Your speed has been set to {0}.'
@@ -18,13 +15,10 @@ set-player-time: 'Your time has been set to {0}.'
 set-player-time-synchronized: 'Your time has been synchronized with the server.'
 set-player-weather: 'Your weather has been set to {0}.'
 set-player-weather-synchronized: 'Your weather has been synchronized with the server.'
-
 connect-to-server: 'Connect to server'
 connecting-to-server: 'Connecting to server...'
 server-is-offline: 'Server is offline...'
 command-usage: 'Usage'
-
 successfully-reloaded-plugin: 'Successfully reloaded plugin.'
-
-
+#NOTE: Do not change
 config-version: 1.0
