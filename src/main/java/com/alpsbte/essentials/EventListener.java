@@ -1,5 +1,6 @@
 package com.alpsbte.essentials;
 
+import com.alpsbte.alpslib.utils.item.ItemBuilder;
 import com.alpsbte.essentials.utils.io.ConfigPaths;
 import com.alpsbte.essentials.utils.io.ConfigUtil;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
@@ -7,11 +8,17 @@ import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -24,6 +31,17 @@ public class EventListener implements Listener {
                 !event.getPlayer().hasPlayedBefore()) {
             event.getPlayer().teleport(AlpsEssentials.getSpawnLocation());
         }
+
+        // Check for patreon hat cosmetic
+        if (event.getPlayer().hasPermission("alpsbte.patreonTier1")) {
+            event.getPlayer().getInventory().setHelmet(new ItemBuilder(Material.PAPER)
+                    .setName(Component.text("Construction Helmet", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                    .setItemModel(ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
+                    .build());
+        } else if (event.getPlayer().getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet()
+                .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+            event.getPlayer().getInventory().setHelmet(null);
+        }
     }
 
     @EventHandler
@@ -34,8 +52,8 @@ public class EventListener implements Listener {
             if (event.getClickedBlock() != null && event.getItem() == null && event.getClickedBlock().getType() == Material.IRON_TRAPDOOR) {
                 RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
                 com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(event.getPlayer().getLocation());
-                com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(event.getPlayer().getWorld());
-                if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), world)) {
+                //com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(event.getPlayer().getWorld());
+                //if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), world)) {
                     if (query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), Flags.INTERACT)) {
                         BlockData data = event.getClickedBlock().getBlockData();
 
@@ -52,6 +70,24 @@ public class EventListener implements Listener {
                         }
                     }
                 }
+            //}
+        }
+    }
+
+    @EventHandler
+    public void onInventoryCreativeEvent(InventoryCreativeEvent event) {
+        if (event.getCursor().hasItemMeta() && event.getCursor().getItemMeta().hasCustomModelData() && event.getCursor().getItemMeta().getCustomModelData() ==
+                ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+            event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
+        }
+
+        if (event.getSlotType() == InventoryType.SlotType.ARMOR) {
+            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() &&
+                    event.getCurrentItem().getItemMeta().hasCustomModelData() && event.getCurrentItem().getItemMeta().getCustomModelData() ==
+                            ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+                event.setResult(Event.Result.DENY);
+                event.setCancelled(true);
             }
         }
     }

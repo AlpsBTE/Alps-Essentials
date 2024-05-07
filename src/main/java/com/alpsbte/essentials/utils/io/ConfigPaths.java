@@ -41,4 +41,7 @@ public abstract class ConfigPaths {
     // Others
     public static final String RIGHT_CLICK_IRON_TRAP_DOORS = "right-click-iron-trap-doors";
     public static final String TELEPORT_PLAYER_TO_SPAWN_ON_JOIN = "teleport-player-to-spawn-on-join";
+
+    // Cosmetics
+    public static final String COSMETIC_PATREON_HAT_MODEL_DATA = "cosmetic-patreon-hat-model-data";
 }
