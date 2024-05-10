@@ -62,18 +62,19 @@ public class ServerUtils {
     }
 
     public static void connectToServer(Server server, Player player) {
-        if (isOnline(server)) {
-            player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.CONNECTING_TO_SERVER)));
-            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
-
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("ConnectOther");
-            out.writeUTF(player.getName());
-            out.writeUTF(server.getName());
-            player.sendPluginMessage(AlpsEssentials.getPlugin(), "BungeeCord", out.toByteArray());
-        } else {
+        if (!isOnline(server)) {
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1f, 1f);
             player.sendMessage(ChatUtils.getAlertMessageFormat(LangUtil.getInstance().get(player, LangPaths.SERVER_IS_OFFLINE)));
+            return;
         }
+
+        player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.CONNECTING_TO_SERVER)));
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
+
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("ConnectOther");
+        out.writeUTF(player.getName());
+        out.writeUTF(server.getName());
+        player.sendPluginMessage(AlpsEssentials.getPlugin(), "BungeeCord", out.toByteArray());
     }
 }

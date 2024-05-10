@@ -14,5 +14,12 @@ public abstract class LangPaths {
     public static final String SERVER_IS_OFFLINE = "server-is-offline";
     public static final String COMMAND_USAGE = "command-usage";
 
+    public static final String LINK_HOVER = "link-hover";
+
+    public static final String DONATION_MESSAGE_INTRODUCTION = "donation-message-introduction";
+    public static final String DONATION_MESSAGE_TEXT = "donation-message-text";
+    public static final String DONATION_MESSAGE_LINK = "donation-message-link";
+    public static final String DONATION_MESSAGE_THANKS = "donation-message-thanks";
+
     public static final String SUCCESSFULLY_RELOADED_PLUGIN = "successfully-reloaded-plugin";
 }

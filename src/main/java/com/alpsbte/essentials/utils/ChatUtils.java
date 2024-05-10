@@ -12,12 +12,14 @@ public class ChatUtils {
         ChatUtils.alertPrefix = AlpsUtils.deserialize(alertPrefix);
         ChatUtils.arrow = AlpsUtils.deserialize(arrow);
     }
-    private static Component infoPrefix;
-    private static Component alertPrefix;
-    private static Component arrow;
+    private static Component infoPrefix, alertPrefix, arrow;
 
     public static Component getInfoMessageFormat(String info) {
         return infoPrefix.append(arrow).append(AlpsUtils.deserialize(info).color(GREEN));
+    }
+
+    public static Component getInfoMessageFormat(Component info) {
+        return infoPrefix.append(arrow).append(info);
     }
 
     public static Component getAlertMessageFormat(String alert) {

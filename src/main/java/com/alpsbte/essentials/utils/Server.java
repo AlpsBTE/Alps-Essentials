@@ -14,6 +14,7 @@ public enum Server {
     private String IP;
     private int port;
     private int onlinePlayers;
+    private static boolean configDataSet = false;
 
     Server(String name, String IP, int port, int onlinePlayers) {
         this.name = name;
@@ -38,8 +39,6 @@ public enum Server {
         return onlinePlayers;
     }
 
-    private static boolean configDataSet = false;
-
     public static void setConfigData() {
         if (ConfigUtil.getInstance() == null || ConfigUtil.getInstance().configs.length == 0) return;
         FileConfiguration config = AlpsEssentials.getPlugin().getConfig();
@@ -54,14 +53,14 @@ public enum Server {
 
     public static void setPlayerData(ByteArrayDataInput in) {
         String subChannel = in.readUTF();
-        if (subChannel.equals("PlayerCount")) {
-            String server = in.readUTF().toUpperCase();
+        if (!subChannel.equals("PlayerCount")) return;
 
-            if (HUB_PLOT.getName().equals(server)) {
-                HUB_PLOT.onlinePlayers = in.readInt();
-            } else if (TERRA.getName().equals(server)) {
-                TERRA.onlinePlayers = in.readInt();
-            }
+        String server = in.readUTF().toUpperCase();
+
+        if (HUB_PLOT.getName().equals(server)) {
+            HUB_PLOT.onlinePlayers = in.readInt();
+        } else if (TERRA.getName().equals(server)) {
+            TERRA.onlinePlayers = in.readInt();
         }
     }
 

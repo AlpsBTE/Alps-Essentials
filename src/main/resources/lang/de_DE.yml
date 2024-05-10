@@ -20,5 +20,10 @@ connecting-to-server: 'Verbinde mit Server...'
 server-is-offline: 'Server ist offline...'
 command-usage: 'Verwende'
 successfully-reloaded-plugin: 'Plugin erfolgreich neu geladen.'
+link-hover: 'Klicke um den link zu öffnen...'
+donation-message-introduction: 'Geniesst du deinen Aufenthalt auf Alps BTE?'
+donation-message-text: 'Wenn ja, würden wir uns auf eine Spende freuen! Wir sind vollständig auf Spenden angewiesen, um dieses Netzwerk am Laufen zu halten, daher Freuen wir uns auf jede Unterstützung, egal wie gross oder klein!'
+donation-message-link: 'Klicke hier um zu spenden.'
+donation-message-thanks: 'Vielen Dank! :)'
 #NOTE: Do not change
 config-version: 1.0
