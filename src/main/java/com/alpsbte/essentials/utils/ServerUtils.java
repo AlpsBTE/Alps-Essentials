@@ -21,6 +21,11 @@ import static net.kyori.adventure.text.format.NamedTextColor.RED;
 import static net.kyori.adventure.text.format.TextDecoration.BOLD;
 
 public class ServerUtils {
+
+    private ServerUtils() {
+        throw new IllegalStateException("Utility class"); // Disable instantiation (Static Class)
+    }
+
     public static boolean isOnline(Server server) {
         return checkForConnection(server);
     }
@@ -32,7 +37,7 @@ public class ServerUtils {
                 ByteArrayDataOutput out = ByteStreams.newDataOutput();
                 out.writeUTF("PlayerCount");
                 out.writeUTF(server.getName());
-                player.sendPluginMessage(AlpsEssentials.getPlugin(), "BungeeCord", out.toByteArray());
+                player.sendPluginMessage(AlpsEssentials.getPlugin(), AlpsEssentials.PLUGIN_CHANNEL, out.toByteArray());
             }
         });
     }
@@ -73,6 +78,6 @@ public class ServerUtils {
         out.writeUTF("ConnectOther");
         out.writeUTF(player.getName());
         out.writeUTF(server.getName());
-        player.sendPluginMessage(AlpsEssentials.getPlugin(), "BungeeCord", out.toByteArray());
+        player.sendPluginMessage(AlpsEssentials.getPlugin(), AlpsEssentials.PLUGIN_CHANNEL, out.toByteArray());
     }
 }

@@ -24,12 +24,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public final class AlpsEssentials extends JavaPlugin implements PluginMessageListener {
-    private static Plugin plugin;
+    public static final String PLUGIN_CHANNEL = "BungeeCord";
 
     @Override
     public void onEnable() {
-        plugin = this;
-
         // Init Config
         try {
             YamlFileFactory.registerPlugin(this);
@@ -47,8 +45,8 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
         LangUtil.init();
 
         // Register bungeecord messaging channels
-        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, PLUGIN_CHANNEL);
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, PLUGIN_CHANNEL, this);
 
         // Register Commands
         CommandMap cmdMap = Bukkit.getServer().getCommandMap();
@@ -74,12 +72,12 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
 
     @Override
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] message) {
-        if (!channel.equals("BungeeCord")) return;
+        if (!channel.equals(PLUGIN_CHANNEL)) return;
         Server.setPlayerData(ByteStreams.newDataInput(message));
     }
 
     public static Plugin getPlugin() {
-        return plugin;
+        return getPlugin(AlpsEssentials.class);
     }
 
     @Override
