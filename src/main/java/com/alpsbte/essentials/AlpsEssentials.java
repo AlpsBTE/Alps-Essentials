@@ -9,6 +9,9 @@ import com.alpsbte.essentials.utils.io.ConfigPaths;
 import com.alpsbte.essentials.utils.io.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.google.common.io.ByteStreams;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -49,9 +52,13 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
         this.getServer().getMessenger().registerIncomingPluginChannel(this, PLUGIN_CHANNEL, this);
 
         // Register Commands
+        LifecycleEventManager<@NotNull Plugin> manager = this.getLifecycleManager();
+        manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+            final Commands commands = event.registrar();
+            if (getConfig().getBoolean(ConfigPaths.CMD_HUB)) HubCommand.register(commands);
+        });
+
         CommandMap cmdMap = Bukkit.getServer().getCommandMap();
-        if (getConfig().getBoolean(ConfigPaths.CMD_HUB))
-            cmdMap.register("hub", new CMD_Hub("hub"));
         if (getConfig().getBoolean(ConfigPaths.CMD_SPAWN))
             cmdMap.register("spawn", new CMD_Spawn("spawn"));
         if (getConfig().getBoolean(ConfigPaths.CMD_SWITCH))
