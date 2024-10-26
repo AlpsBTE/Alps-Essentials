@@ -4,7 +4,6 @@ import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.google.common.collect.Iterables;
-import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.kyori.adventure.text.Component;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.logging.Level;
 
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.GREEN;
@@ -45,8 +43,8 @@ public class ServerUtils {
             s.connect(new InetSocketAddress(server.getIP(), server.getPort()), 30);
             return true;
         } catch (IOException ignore) {
-            Bukkit.getLogger().log(Level.WARNING, "Could not connect to server (" + server.getName() +
-                    " - " + server.getIP() + ":" + server.getPort() + ")");
+            AlpsEssentials.getPlugin().getComponentLogger().warn(text("Could not connect to server (" + server.getName() +
+                " - " + server.getIP() + ":" + server.getPort() + ")"));
         }
         return false;
     }

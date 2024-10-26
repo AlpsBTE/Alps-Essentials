@@ -22,7 +22,6 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.logging.Level;
 
 public final class AlpsEssentials extends JavaPlugin implements PluginMessageListener {
     private static Plugin plugin;
@@ -36,7 +35,7 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
             YamlFileFactory.registerPlugin(this);
             ConfigUtil.init();
         } catch (ConfigNotImplementedException ex) {
-            Bukkit.getLogger().log(Level.WARNING, "Could not load configuration file.");
+            this.getComponentLogger().warn(Component.text("Could not load configuration file."));
             Bukkit.getConsoleSender().sendMessage(Component.text("The config file must be configured!", NamedTextColor.YELLOW));
             this.getServer().getPluginManager().disablePlugin(this);
             return;

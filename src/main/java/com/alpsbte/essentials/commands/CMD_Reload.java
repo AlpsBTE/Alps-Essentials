@@ -4,12 +4,13 @@ import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class CMD_Reload extends BukkitCommand {
     public CMD_Reload(@NotNull String name) {
@@ -30,7 +31,7 @@ public class CMD_Reload extends BukkitCommand {
                         .invoke(this);
             } catch (NoSuchMethodException | ClassNotFoundException |
                      InvocationTargetException | IllegalAccessException ex) {
-                Bukkit.getLogger().warning("Could not reload Alps-Hub plugin.");
+                AlpsEssentials.getPlugin().getComponentLogger().warn(text("Could not reload Alps-Hub plugin."));
             }
         }
 
@@ -40,7 +41,7 @@ public class CMD_Reload extends BukkitCommand {
                         .invoke(this);
             } catch (NoSuchMethodException | ClassNotFoundException |
                      InvocationTargetException | IllegalAccessException ex) {
-                Bukkit.getLogger().warning("Could not reload Alps-Terra plugin.");
+                AlpsEssentials.getPlugin().getComponentLogger().warn(text("Could not reload Alps-Terra plugin."));
             }
         }
 
