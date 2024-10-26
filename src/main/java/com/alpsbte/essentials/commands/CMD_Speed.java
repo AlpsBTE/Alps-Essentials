@@ -30,8 +30,7 @@ public class CMD_Speed extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player)sender;
+        if (!(sender instanceof Player player)) return true;
 
         if (args.length == 1 && AlpsUtils.tryParseInt(args[0]) != null) {
             float speed = Float.parseFloat(args[0]) / 10;

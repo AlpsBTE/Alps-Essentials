@@ -33,7 +33,7 @@ public class ServerUtils {
             return true;
         } catch (IOException ignore) {
             AlpsEssentials.getPlugin().getComponentLogger().warn(text("Could not connect to server (" + server.getName() +
-                " - " + server.getIP() + ":" + server.getPort() + ")"));
+                    " - " + server.getIP() + ":" + server.getPort() + ")"));
         }
         return false;
     }

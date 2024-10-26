@@ -27,6 +27,6 @@ public class HubCommand implements BasicCommand {
     }
 
     public static void register(Commands commands) {
-        commands.register("hub", "Teleports to the hub server.", List.of("l", "lobby"),  new HubCommand());
+        commands.register("hub", "Teleports to the hub server.", List.of("l", "lobby"), new HubCommand());
     }
 }

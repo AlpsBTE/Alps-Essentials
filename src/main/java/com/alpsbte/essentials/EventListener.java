@@ -64,21 +64,21 @@ public class EventListener implements Listener {
             String thanks = LangUtil.getInstance().get(p, LangPaths.DONATION_MESSAGE_THANKS);
             String linkHover = LangUtil.getInstance().get(p, LangPaths.LINK_HOVER);
 
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 1f,1f);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 1f, 1f);
 
             p.sendMessage("");
             p.sendMessage(ChatUtils.getInfoMessageFormat(Component.text(introduction, NamedTextColor.YELLOW)));
             p.sendMessage("");
             p.sendMessage(Component.text(text, NamedTextColor.GRAY));
             p.sendMessage("");
-            p.sendMessage(Component.text("» ",NamedTextColor.DARK_GRAY)
-                            .append(Component.text(link, NamedTextColor.GREEN)
-                                    .clickEvent(ClickEvent.openUrl("https://www.tipeeestream.com/alps-bte/donation"))
-                                    .hoverEvent(HoverEvent.showText(Component.text(linkHover,NamedTextColor.GRAY)))));
+            p.sendMessage(Component.text("» ", NamedTextColor.DARK_GRAY)
+                    .append(Component.text(link, NamedTextColor.GREEN)
+                            .clickEvent(ClickEvent.openUrl("https://www.tipeeestream.com/alps-bte/donation"))
+                            .hoverEvent(HoverEvent.showText(Component.text(linkHover, NamedTextColor.GRAY)))));
             p.sendMessage("");
             p.sendMessage(Component.text(thanks, NamedTextColor.GRAY));
             p.sendMessage("");
-        },20*60*10); // in 10 minutes
+        }, 20 * 60 * 10); // in 10 minutes
     }
 
     @EventHandler
@@ -91,22 +91,22 @@ public class EventListener implements Listener {
                 com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(event.getPlayer().getLocation());
                 //com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(event.getPlayer().getWorld());
                 //if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), world)) {
-                    if (query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), Flags.INTERACT)) {
-                        BlockData data = event.getClickedBlock().getBlockData();
+                if (query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), Flags.INTERACT)) {
+                    BlockData data = event.getClickedBlock().getBlockData();
 
-                        if (data instanceof Openable) {
-                            Openable door = (Openable) data;
+                    if (data instanceof Openable) {
+                        Openable door = (Openable) data;
 
-                            if (!door.isOpen()) {
-                                door.setOpen(true);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
-                            } else {
-                                door.setOpen(false);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
-                            }
+                        if (!door.isOpen()) {
+                            door.setOpen(true);
+                            event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
+                        } else {
+                            door.setOpen(false);
+                            event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
                         }
                     }
                 }
+            }
             //}
         }
     }
@@ -122,7 +122,7 @@ public class EventListener implements Listener {
         if (event.getSlotType() == InventoryType.SlotType.ARMOR) {
             if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() &&
                     event.getCurrentItem().getItemMeta().hasCustomModelData() && event.getCurrentItem().getItemMeta().getCustomModelData() ==
-                            ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+                    ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
                 event.setResult(Event.Result.DENY);
                 event.setCancelled(true);
             }

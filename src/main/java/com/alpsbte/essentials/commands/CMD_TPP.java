@@ -31,8 +31,7 @@ public class CMD_TPP extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player)sender;
+        if (!(sender instanceof Player player)) return true;
 
         if (args.length == 1) {
             Player targetPlayer = player.getServer().getPlayer(args[0]);

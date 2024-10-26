@@ -32,8 +32,7 @@ public class CMD_Spawn extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player)sender;
+        if (!(sender instanceof Player player)) return true;
 
         player.teleport(AlpsEssentials.getSpawnLocation());
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
