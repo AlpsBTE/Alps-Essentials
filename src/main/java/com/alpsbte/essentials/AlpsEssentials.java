@@ -55,12 +55,10 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
         LifecycleEventManager<@NotNull Plugin> manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
-            if (getConfig().getBoolean(ConfigPaths.CMD_HUB)) HubCommand.register(commands);
+            if (getConfig().getBoolean(ConfigPaths.CMD_SPAWN)) Spawn.register(commands);
         });
 
         CommandMap cmdMap = Bukkit.getServer().getCommandMap();
-        if (getConfig().getBoolean(ConfigPaths.CMD_SPAWN))
-            cmdMap.register("spawn", new CMD_Spawn("spawn"));
         if (getConfig().getBoolean(ConfigPaths.CMD_SWITCH))
             cmdMap.register("switch", new CMD_Switch("switch"));
         if (getConfig().getBoolean(ConfigPaths.CMD_TPP))

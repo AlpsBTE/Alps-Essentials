@@ -1,6 +1,11 @@
 package com.alpsbte.essentials.utils.io;
 
 public abstract class ConfigPaths {
+
+    private ConfigPaths() {
+        throw new IllegalStateException("Utility class"); // Disable instantiation (Static Class)
+    }
+
     // Chat Formatting
     private static final String CHAT_FORMAT = "chat-format.";
     public static final String CHAT_FORMAT_INFO_PREFIX = CHAT_FORMAT + "info-prefix";
@@ -18,6 +23,11 @@ public abstract class ConfigPaths {
 
     // Servers
     public static final class Server {
+
+        private Server() {
+            throw new IllegalStateException("Utility class"); // Disable instantiation (Static Class)
+        }
+
         private static final String SERVERS = "servers.";
         private static final String SERVERS_PLOT = SERVERS + "plot.plot-";
         public static final String SERVERS_PLOT_NAME = SERVERS_PLOT + "name";
@@ -30,7 +40,6 @@ public abstract class ConfigPaths {
     }
 
     // Commands
-    public static final String CMD_HUB = "cmd-hub";
     public static final String CMD_SPAWN = "cmd-spawn";
     public static final String CMD_SWITCH = "cmd-switch";
     public static final String CMD_TPP = "cmd-tpp";
