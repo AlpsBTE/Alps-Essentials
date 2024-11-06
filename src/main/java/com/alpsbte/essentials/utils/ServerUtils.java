@@ -5,22 +5,22 @@ import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.NamedTextColor.GREEN;
+import static net.kyori.adventure.text.format.NamedTextColor.RED;
+import static net.kyori.adventure.text.format.TextDecoration.BOLD;
 
 public class ServerUtils {
-
-    public static final String PERMISSION_PREFIX = "alpsbte.";
-
-    private ServerUtils() {
-        throw new IllegalStateException("Utility class"); // Disable instantiation (Static Class)
-    }
+    private ServerUtils() {}
 
     public static boolean isOnline(Server server) {
         return checkForConnection(server);
@@ -36,6 +36,17 @@ public class ServerUtils {
                     " - " + server.getIP() + ":" + server.getPort() + ")"));
         }
         return false;
+    }
+
+    @SuppressWarnings("unused")
+    public static @NotNull Component getServerStatusComponent(boolean isOnline, Player player) {
+        if (isOnline) {
+            return text("→ ", GREEN, BOLD)
+                    .append(text(LangUtil.getInstance().get(player, LangPaths.CONNECT_TO_SERVER)));
+        } else {
+            return text("✕ ", RED, BOLD)
+                    .append(text(LangUtil.getInstance().get(player, LangPaths.SERVER_IS_OFFLINE)));
+        }
     }
 
     public static void connectToServer(Server server, Player player) {
