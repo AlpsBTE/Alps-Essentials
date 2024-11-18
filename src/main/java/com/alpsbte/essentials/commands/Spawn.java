@@ -6,6 +6,7 @@ import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
@@ -23,14 +24,7 @@ public class Spawn implements AlpsCommand {
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("spawn")
                 .requires(stack -> this.canUseAndIsPlayer(stack.getSender()))
-                .executes(ctx -> {
-                    if (ctx.getSource().getSender() instanceof Player player) {
-                        player.teleport(AlpsEssentials.getSpawnLocation());
-                        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
-                        player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.TELEPORTING_TO_SPAWN)));
-                    }
-                    return Command.SINGLE_SUCCESS;
-                })
+                .executes(this::execute)
                 .build();
     }
 
@@ -42,5 +36,14 @@ public class Spawn implements AlpsCommand {
     @Override
     public @NotNull Collection<String> aliases() {
         return List.of("hub", "l", "lobby");
+    }
+
+    private int execute(CommandContext<CommandSourceStack> ctx) {
+        if (ctx.getSource().getSender() instanceof Player player) {
+            player.teleport(AlpsEssentials.getSpawnLocation());
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
+            player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.TELEPORTING_TO_SPAWN)));
+        }
+        return Command.SINGLE_SUCCESS;
     }
 }

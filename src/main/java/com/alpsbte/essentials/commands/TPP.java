@@ -5,6 +5,8 @@ import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
@@ -24,17 +26,7 @@ public class TPP implements AlpsCommand {
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("tpp")
                 .requires(stack -> this.canUseAndIsPlayer(stack.getSender()))
-                .then(Commands.argument("player", ArgumentTypes.player()).executes(ctx -> {
-                    Player targetPlayer = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
-                    Player executor = (Player) ctx.getSource().getExecutor();
-
-                    if (executor != null) {
-                        executor.teleport(targetPlayer);
-                        executor.playSound(executor, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
-                        executor.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(executor, LangPaths.TELEPORTING_TO_PLAYER)));
-                    }
-                    return Command.SINGLE_SUCCESS;
-                })).build();
+                .then(Commands.argument("player", ArgumentTypes.player()).executes(this::execute)).build();
     }
 
     @Override
@@ -45,5 +37,17 @@ public class TPP implements AlpsCommand {
     @Override
     public @NotNull Collection<String> aliases() {
         return List.of("tp");
+    }
+
+    private int execute(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        Player targetPlayer = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
+        Player executor = (Player) ctx.getSource().getExecutor();
+
+        if (executor != null) {
+            executor.teleport(targetPlayer);
+            executor.playSound(executor, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
+            executor.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(executor, LangPaths.TELEPORTING_TO_PLAYER)));
+        }
+        return Command.SINGLE_SUCCESS;
     }
 }
