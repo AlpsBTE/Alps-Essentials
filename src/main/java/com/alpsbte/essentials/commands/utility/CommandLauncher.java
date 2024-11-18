@@ -34,13 +34,13 @@ public class CommandLauncher {
     /**
      * The commands to be registered.
      */
-    static final ConfigCommandObject[] alpsCommands = new ConfigCommandObject[]{
-            new ConfigCommandObject(ConfigPaths.CMD_TPP, new TPP()),
-            new ConfigCommandObject(ConfigPaths.CMD_SPAWN, new Spawn()),
-            new ConfigCommandObject(ConfigPaths.CMD_SWITCH, new Switch()),
-            new ConfigCommandObject(ConfigPaths.CMD_SPEED, new Speed()),
-            new ConfigCommandObject(ConfigPaths.CMD_PTIME, new PTime()),
-            new ConfigCommandObject(ConfigPaths.CMD_PWEATHER, new PWeather()),
-            new ConfigCommandObject(null, new AlpsReload())
+    static final ConfigCommandObject[]  alpsCommands = new ConfigCommandObject[]{
+            new ConfigCommandObject(ConfigPaths.CMD_TPP, new CMD_TPP()),
+            new ConfigCommandObject(ConfigPaths.CMD_SPAWN, new CMD_Spawn()),
+            new ConfigCommandObject(ConfigPaths.CMD_SWITCH, new CMD_Switch()),
+            new ConfigCommandObject(ConfigPaths.CMD_SPEED, new CMD_Speed()),
+            new ConfigCommandObject(ConfigPaths.CMD_PTIME, new CMD_PTime()),
+            new ConfigCommandObject(ConfigPaths.CMD_PWEATHER, new CMD_PWeather()),
+            new ConfigCommandObject(null, new CMD_AlpsReload())
     };
 }

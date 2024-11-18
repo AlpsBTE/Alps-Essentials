@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
-public class PWeather implements AlpsCommand {
+public class CMD_PWeather implements AlpsCommand {
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("pweather")

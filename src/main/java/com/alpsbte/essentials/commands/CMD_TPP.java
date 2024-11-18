@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("UnstableApiUsage")
-public class TPP implements AlpsCommand {
+public class CMD_TPP implements AlpsCommand {
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("tpp")

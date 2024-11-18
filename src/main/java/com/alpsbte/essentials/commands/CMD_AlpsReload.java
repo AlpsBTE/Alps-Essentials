@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import static net.kyori.adventure.text.Component.text;
 
 @SuppressWarnings("UnstableApiUsage")
-public class AlpsReload implements AlpsCommand {
+public class CMD_AlpsReload implements AlpsCommand {
 
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
