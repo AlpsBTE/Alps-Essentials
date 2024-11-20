@@ -41,4 +41,9 @@ public class CMD_Speed implements AlpsCommand {
             }
         return Command.SINGLE_SUCCESS;
     }
+
+    @Override
+    public @Nullable String permission() {
+        return PERMISSION_PREFIX + "speed";
+    }
 }

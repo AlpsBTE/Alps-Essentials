@@ -22,11 +22,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_MESSAGE))
+        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
             event.joinMessage(null);
 
         // Teleport to the spawn point
@@ -45,6 +46,12 @@ public class EventListener implements Listener {
                 .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
             event.getPlayer().getInventory().setHelmet(null);
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuitEvent(PlayerQuitEvent event) {
+        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
+            event.quitMessage(null);
     }
 
     @EventHandler

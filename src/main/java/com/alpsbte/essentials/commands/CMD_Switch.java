@@ -36,4 +36,9 @@ public class CMD_Switch implements AlpsCommand {
         ServerUtils.connectToServer(Server.HUB_PLOT, (Player) ctx.getSource().getSender());
         return Command.SINGLE_SUCCESS;
     }
+
+    @Override
+    public @Nullable String permission() {
+        return PERMISSION_PREFIX + "switch";
+    }
 }

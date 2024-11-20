@@ -50,4 +50,9 @@ public class CMD_PWeather implements AlpsCommand {
                 LangPaths.SET_PLAYER_WEATHER_SYNCHRONIZED)));
         return Command.SINGLE_SUCCESS;
     }
+
+    @Override
+    public @Nullable String permission() {
+        return PERMISSION_PREFIX + "pweather";
+    }
 }

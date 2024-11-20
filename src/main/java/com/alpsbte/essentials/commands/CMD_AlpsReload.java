@@ -58,4 +58,9 @@ public class CMD_AlpsReload implements AlpsCommand {
                 LangPaths.SUCCESSFULLY_RELOADED_PLUGIN)));
         return Command.SINGLE_SUCCESS;
     }
+
+    @Override
+    public @Nullable String permission() {
+        return PERMISSION_PREFIX + "reload";
+    }
 }

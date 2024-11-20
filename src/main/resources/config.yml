@@ -40,7 +40,7 @@ cmd-ptime: true
 cmd-pweather: true
 
 # Others
-send-join-message: false
+send-join-leave-message: false
 teleport-player-to-spawn-on-join: false
 
 # Cosmetics
@@ -48,4 +48,4 @@ cosmetic-patreon-hat-model-data: 0
 
 
 # NOTE: Do not change
-config-version: 1.3
+config-version: 1.4
