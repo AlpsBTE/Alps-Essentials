@@ -48,7 +48,7 @@ public abstract class ConfigPaths {
     public static final String CMD_PWEATHER = "cmd-pweather";
 
     // Others
-    public static final String RIGHT_CLICK_IRON_TRAP_DOORS = "right-click-iron-trap-doors";
+    public static final String SEND_JOIN_MESSAGE = "send-join-message";
     public static final String TELEPORT_PLAYER_TO_SPAWN_ON_JOIN = "teleport-player-to-spawn-on-join";
 
     // Cosmetics
