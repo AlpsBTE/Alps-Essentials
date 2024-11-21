@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
-public class CMD_PTime implements AlpsCommand {
+public class PTimeCmd implements AlpsCommand {
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("ptime")

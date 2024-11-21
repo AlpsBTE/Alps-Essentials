@@ -1,6 +1,5 @@
 package com.alpsbte.essentials.commands;
 
-import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
 import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
@@ -10,45 +9,41 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.List;
-
 @SuppressWarnings("UnstableApiUsage")
-public class CMD_Spawn implements AlpsCommand {
+public class SpeedCmd implements AlpsCommand {
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
-        return Commands.literal("spawn")
+        return Commands.literal("speed")
                 .requires(stack -> this.canUseAndIsPlayer(stack.getSender()))
-                .executes(this::execute)
-                .build();
+                .then(Commands.literal("1").executes(ctx -> execute(ctx, 1)))
+                .then(Commands.literal("2").executes(ctx -> execute(ctx, 2)))
+                .then(Commands.literal("3").executes(ctx -> execute(ctx, 3))).build();
     }
 
     @Override
     public @Nullable String description() {
-        return "Teleports to the spawn point.";
+        return "Sets the flying speed of the player.";
     }
 
-    @Override
-    public @NotNull Collection<String> aliases() {
-        return List.of("hub", "l", "lobby");
-    }
-
-    private int execute(CommandContext<CommandSourceStack> ctx) {
-        if (ctx.getSource().getSender() instanceof Player player) {
-            player.teleport(AlpsEssentials.getSpawnLocation());
-            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
-            player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.TELEPORTING_TO_SPAWN)));
-        }
+    private int execute(CommandContext<CommandSourceStack> ctx, int modifier) {
+        Player player = ((Player) ctx.getSource().getSender()).getPlayer();
+            if (player != null) {
+                float speed = (float) modifier / 10;
+                if (speed >= 0.1 && speed <= 0.4) {
+                    player.setFlySpeed(speed);
+                    player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player,
+                            LangPaths.SET_PLAYER_SPEED, "<gold>" + modifier + "</gold>")));
+                }
+            }
         return Command.SINGLE_SUCCESS;
     }
 
     @Override
     public @Nullable String permission() {
-        return PERMISSION_PREFIX + "spawn";
+        return PERMISSION_PREFIX + "speed";
     }
 }

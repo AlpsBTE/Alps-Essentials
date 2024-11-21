@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
-public class CMD_Switch implements AlpsCommand {
+public class SwitchCmd implements AlpsCommand {
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("switch")
@@ -33,7 +33,7 @@ public class CMD_Switch implements AlpsCommand {
     }
 
     private int executeTerra(CommandContext<CommandSourceStack> ctx) {
-        ServerUtils.connectToServer(Server.HUB_PLOT, (Player) ctx.getSource().getSender());
+        ServerUtils.connectToServer(Server.TERRA, (Player) ctx.getSource().getSender());
         return Command.SINGLE_SUCCESS;
     }
 
