@@ -58,6 +58,6 @@ public interface AlpsCommand {
      * @return the permission for the root command used in {@link #canUse(CommandSender)}
      */
     default @Nullable String permission() {
-        return PERMISSION_PREFIX + this.getClass().getSimpleName().toLowerCase();
+        return null;
     }
 }
