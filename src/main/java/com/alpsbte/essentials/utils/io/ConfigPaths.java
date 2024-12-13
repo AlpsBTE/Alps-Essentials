@@ -46,6 +46,7 @@ public abstract class ConfigPaths {
     public static final String CMD_SPEED = "cmd-speed";
     public static final String CMD_PTIME = "cmd-ptime";
     public static final String CMD_PWEATHER = "cmd-pweather";
+    public static final String CMD_HUB = "cmd-hub";
 
     // Others
     public static final String SEND_JOIN_LEAVE_MESSAGE = "send-join-leave-message";

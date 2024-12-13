@@ -41,6 +41,7 @@ public class CommandLauncher {
             new ConfigCommandObject(ConfigPaths.CMD_SPEED, new SpeedCmd()),
             new ConfigCommandObject(ConfigPaths.CMD_PTIME, new PTimeCmd()),
             new ConfigCommandObject(ConfigPaths.CMD_PWEATHER, new PWeatherCmd()),
-            new ConfigCommandObject(null, new AlpsReloadCmd())
+            new ConfigCommandObject(null, new AlpsReloadCmd()),
+            new ConfigCommandObject(ConfigPaths.CMD_HUB, new HubCmd())
     };
 }
