@@ -85,7 +85,7 @@ public class EventListener implements Listener {
             p.sendMessage("");
             p.sendMessage(Component.text(thanks, NamedTextColor.GRAY));
             p.sendMessage("");
-        }, 20 * 60 * 10); // in 10 minutes
+        }, 20 * 60 * 10L); // in 10 minutes
     }
 
     @EventHandler
@@ -96,13 +96,14 @@ public class EventListener implements Listener {
             event.setCancelled(true);
         }
 
-        if (event.getSlotType() == InventoryType.SlotType.ARMOR) {
-            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() &&
-                    event.getCurrentItem().getItemMeta().hasCustomModelData() && event.getCurrentItem().getItemMeta().getCustomModelData() ==
-                    ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
-                event.setResult(Event.Result.DENY);
-                event.setCancelled(true);
-            }
+        if (event.getSlotType() == InventoryType.SlotType.ARMOR &&
+                event.getCurrentItem() != null &&
+                event.getCurrentItem().hasItemMeta() &&
+                event.getCurrentItem().getItemMeta().hasCustomModelData() &&
+                event.getCurrentItem().getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+            event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
         }
+
     }
 }

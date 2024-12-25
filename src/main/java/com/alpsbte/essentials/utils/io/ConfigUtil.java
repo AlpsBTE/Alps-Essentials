@@ -6,6 +6,8 @@ import com.alpsbte.alpslib.io.config.ConfigurationUtil;
 import java.nio.file.Paths;
 
 public class ConfigUtil {
+    private ConfigUtil() {}
+
     private static ConfigurationUtil configUtilInstance;
 
     public static void init() throws ConfigNotImplementedException {
