@@ -38,10 +38,16 @@ public class EventListener implements Listener {
 
         // Check for patreon hat cosmetic
         if (event.getPlayer().hasPermission("alpsbte.patreonTier1")) {
-            event.getPlayer().getInventory().setHelmet(new ItemBuilder(Material.PAPER)
-                    .setName(Component.text("Construction Helmet", NamedTextColor.YELLOW, TextDecoration.BOLD))
-                    .setItemModel(ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
-                    .build());
+            var cv = ConfigUtil.getInstance().configs[0].get(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA);
+            var item = new ItemBuilder(Material.PAPER).setName(Component.text("Construction Helmet", NamedTextColor.YELLOW, TextDecoration.BOLD));
+
+            if (cv instanceof String configString) {
+                item.setItemModel(configString);
+            } else if (cv instanceof Integer configInt) {
+                item.setItemModel(configInt);
+            }
+
+            event.getPlayer().getInventory().setHelmet(item.build());
         } else if (event.getPlayer().getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet()
                 .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
             event.getPlayer().getInventory().setHelmet(null);
