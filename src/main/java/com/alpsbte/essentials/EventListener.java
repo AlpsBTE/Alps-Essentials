@@ -6,11 +6,6 @@ import com.alpsbte.essentials.utils.io.ConfigPaths;
 import com.alpsbte.essentials.utils.io.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.Flags;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -20,21 +15,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Openable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
+        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
+            event.joinMessage(null);
+
         // Teleport to the spawn point
         if (AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.TELEPORT_PLAYER_TO_SPAWN_ON_JOIN) ||
                 !event.getPlayer().hasPlayedBefore()) {
@@ -45,12 +40,18 @@ public class EventListener implements Listener {
         if (event.getPlayer().hasPermission("alpsbte.patreonTier1")) {
             event.getPlayer().getInventory().setHelmet(new ItemBuilder(Material.PAPER)
                     .setName(Component.text("Construction Helmet", NamedTextColor.YELLOW, TextDecoration.BOLD))
-                    .setItemModel(ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
+                    .setItemModel(ConfigUtil.getInstance().configs[0].get(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
                     .build());
         } else if (event.getPlayer().getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet()
                 .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
             event.getPlayer().getInventory().setHelmet(null);
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuitEvent(PlayerQuitEvent event) {
+        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
+            event.quitMessage(null);
     }
 
     @EventHandler
@@ -64,51 +65,21 @@ public class EventListener implements Listener {
             String thanks = LangUtil.getInstance().get(p, LangPaths.DONATION_MESSAGE_THANKS);
             String linkHover = LangUtil.getInstance().get(p, LangPaths.LINK_HOVER);
 
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 1f,1f);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 1f, 1f);
 
             p.sendMessage("");
             p.sendMessage(ChatUtils.getInfoMessageFormat(Component.text(introduction, NamedTextColor.YELLOW)));
             p.sendMessage("");
             p.sendMessage(Component.text(text, NamedTextColor.GRAY));
             p.sendMessage("");
-            p.sendMessage(Component.text("» ",NamedTextColor.DARK_GRAY)
-                            .append(Component.text(link, NamedTextColor.GREEN)
-                                    .clickEvent(ClickEvent.openUrl("https://www.tipeeestream.com/alps-bte/donation"))
-                                    .hoverEvent(HoverEvent.showText(Component.text(linkHover,NamedTextColor.GRAY)))));
+            p.sendMessage(Component.text("» ", NamedTextColor.DARK_GRAY)
+                    .append(Component.text(link, NamedTextColor.GREEN)
+                            .clickEvent(ClickEvent.openUrl("https://www.tipeeestream.com/alps-bte/donation"))
+                            .hoverEvent(HoverEvent.showText(Component.text(linkHover, NamedTextColor.GRAY)))));
             p.sendMessage("");
             p.sendMessage(Component.text(thanks, NamedTextColor.GRAY));
             p.sendMessage("");
-        },20*60*10); // in 10 minutes
-    }
-
-    @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
-        // Open/Close iron trap door when right-clicking
-        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.RIGHT_CLICK_IRON_TRAP_DOORS)) return;
-        if (event.getAction().isRightClick() && event.getHand() != EquipmentSlot.OFF_HAND && !event.getPlayer().isSneaking()) {
-            if (event.getClickedBlock() != null && event.getItem() == null && event.getClickedBlock().getType() == Material.IRON_TRAPDOOR) {
-                RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
-                com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(event.getPlayer().getLocation());
-                //com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(event.getPlayer().getWorld());
-                //if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), world)) {
-                    if (query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), Flags.INTERACT)) {
-                        BlockData data = event.getClickedBlock().getBlockData();
-
-                        if (data instanceof Openable) {
-                            Openable door = (Openable) data;
-
-                            if (!door.isOpen()) {
-                                door.setOpen(true);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
-                            } else {
-                                door.setOpen(false);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
-                            }
-                        }
-                    }
-                }
-            //}
-        }
+        }, 20 * 60 * 10L); // in 10 minutes
     }
 
     @EventHandler
@@ -119,13 +90,14 @@ public class EventListener implements Listener {
             event.setCancelled(true);
         }
 
-        if (event.getSlotType() == InventoryType.SlotType.ARMOR) {
-            if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() &&
-                    event.getCurrentItem().getItemMeta().hasCustomModelData() && event.getCurrentItem().getItemMeta().getCustomModelData() ==
-                            ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
-                event.setResult(Event.Result.DENY);
-                event.setCancelled(true);
-            }
+        if (event.getSlotType() == InventoryType.SlotType.ARMOR &&
+                event.getCurrentItem() != null &&
+                event.getCurrentItem().hasItemMeta() &&
+                event.getCurrentItem().getItemMeta().hasCustomModelData() &&
+                event.getCurrentItem().getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+            event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
         }
+
     }
 }

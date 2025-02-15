@@ -12,6 +12,7 @@ public class ChatUtils {
         ChatUtils.alertPrefix = AlpsUtils.deserialize(alertPrefix);
         ChatUtils.arrow = AlpsUtils.deserialize(arrow);
     }
+
     private static Component infoPrefix, alertPrefix, arrow;
 
     public static Component getInfoMessageFormat(String info) {

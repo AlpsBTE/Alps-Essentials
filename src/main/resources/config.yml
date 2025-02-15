@@ -40,12 +40,12 @@ cmd-ptime: true
 cmd-pweather: true
 
 # Others
-right-click-iron-trap-doors: true
+send-join-leave-message: false
 teleport-player-to-spawn-on-join: false
 
 # Cosmetics
-cosmetic-patreon-hat-model-data: 0
+cosmetic-patreon-hat-model-data: ""
 
 
 # NOTE: Do not change
-config-version: 1.2
+config-version: 1.5

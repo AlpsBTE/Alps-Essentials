@@ -11,7 +11,7 @@ public class LangUtil extends LanguageUtil {
 
     public static void init() {
         if (langUtilInstance != null) return;
-        LangLibAPI.register(AlpsEssentials.getPlugin(), new LanguageFile[] {
+        LangLibAPI.register(AlpsEssentials.getPlugin(), new LanguageFile[]{
                 new LanguageFile(Language.en_GB, 1.0),
                 new LanguageFile(Language.de_DE, 1.0)
         });

@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public enum Server {
     HUB_PLOT("name", "localhost", 0, 0),
-    TERRA("name","localhost", 0, 0);
+    TERRA("name", "localhost", 0, 0);
 
     private String name;
     private String IP;
