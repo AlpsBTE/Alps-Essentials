@@ -39,7 +39,6 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
         reloadConfig();
 
         // Register the language library
-        li.cinnazeyy.langlibs.core.file.YamlFileFactory.registerPlugin(this);
         LangUtil.init();
 
         // Register bungeecord messaging channels
