@@ -43,6 +43,7 @@ public class EventListener implements Listener {
                     .setItemModel(ConfigUtil.getInstance().configs[0].get(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
                     .build());
         } else if (event.getPlayer().getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet()
+                .getItemMeta().hasCustomModelData() && event.getPlayer().getInventory().getHelmet()
                 .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
             event.getPlayer().getInventory().setHelmet(null);
         }
