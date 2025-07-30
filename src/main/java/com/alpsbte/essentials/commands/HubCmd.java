@@ -1,6 +1,8 @@
 package com.alpsbte.essentials.commands;
 
+import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
+import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.Server;
 import com.alpsbte.essentials.utils.ServerUtils;
 import com.mojang.brigadier.Command;
@@ -14,9 +16,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("UnstableApiUsage")
 public class HubCmd implements AlpsCommand {
+    @Override
+    public boolean isEnabled() {
+        return ConfigUtil.getMainConfig().getCommandSection().enableHub();
+    }
 
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
@@ -28,7 +35,12 @@ public class HubCmd implements AlpsCommand {
 
     private int execute(CommandContext<CommandSourceStack> commandSourceStackCommandContext) {
         if (commandSourceStackCommandContext.getSource().getSender() instanceof Player player) {
-            ServerUtils.connectToServer(Server.HUB_PLOT, player);
+            Optional<Server> hubServer = ServerUtils.getServerByName(ConfigUtil.getMainConfig().getHubServerName());
+            if (hubServer.isEmpty()) {
+                AlpsEssentials.getPlugin().getComponentLogger().error("Could not find configured hub world!");
+                return 0;
+            }
+            ServerUtils.connectToServer(hubServer.get(), player);
         }
         return Command.SINGLE_SUCCESS;
     }

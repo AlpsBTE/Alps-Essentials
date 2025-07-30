@@ -1,12 +1,14 @@
 package com.alpsbte.essentials;
 
 import com.alpsbte.alpslib.utils.item.ItemBuilder;
+import com.alpsbte.essentials.config.section.CosmeticDetailSection;
 import com.alpsbte.essentials.utils.ChatUtils;
-import com.alpsbte.essentials.utils.io.ConfigPaths;
-import com.alpsbte.essentials.utils.io.ConfigUtil;
+import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
+import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -21,38 +23,32 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
-            event.joinMessage(null);
+        if (!ConfigUtil.getMainConfig().getSendJoinLeaveMessage()) event.joinMessage(null);
 
         // Teleport to the spawn point
-        if (AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.TELEPORT_PLAYER_TO_SPAWN_ON_JOIN) ||
-                !event.getPlayer().hasPlayedBefore()) {
+        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || !event.getPlayer().hasPlayedBefore()) {
             event.getPlayer().teleport(AlpsEssentials.getSpawnLocation());
         }
 
         // Check for patreon hat cosmetic
-        if (event.getPlayer().hasPermission("alpsbte.patreonTier1")) {
-            event.getPlayer().getInventory().setHelmet(new ItemBuilder(Material.PAPER)
-                    .setName(Component.text("Construction Helmet", NamedTextColor.YELLOW, TextDecoration.BOLD))
-                    .setItemModel(ConfigUtil.getInstance().configs[0].get(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA))
-                    .build());
-        } else if (event.getPlayer().getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet()
-                .getItemMeta().hasCustomModelData() && event.getPlayer().getInventory().getHelmet()
-                .getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
-            event.getPlayer().getInventory().setHelmet(null);
-        }
+        setCosmetics(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
-        if (!AlpsEssentials.getPlugin().getConfig().getBoolean(ConfigPaths.SEND_JOIN_LEAVE_MESSAGE))
-            event.quitMessage(null);
+        if (!ConfigUtil.getMainConfig().getSendJoinLeaveMessage()) event.quitMessage(null);
     }
 
     @EventHandler
@@ -85,20 +81,56 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onInventoryCreativeEvent(InventoryCreativeEvent event) {
-        if (event.getCursor().hasItemMeta() && event.getCursor().getItemMeta().hasCustomModelData() && event.getCursor().getItemMeta().getCustomModelData() ==
-                ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+        if (isAnyHat(event.getCursor())) {
             event.setResult(Event.Result.DENY);
             event.setCancelled(true);
         }
 
-        if (event.getSlotType() == InventoryType.SlotType.ARMOR &&
-                event.getCurrentItem() != null &&
-                event.getCurrentItem().hasItemMeta() &&
-                event.getCurrentItem().getItemMeta().hasCustomModelData() &&
-                event.getCurrentItem().getItemMeta().getCustomModelData() == ConfigUtil.getInstance().configs[0].getInt(ConfigPaths.COSMETIC_PATREON_HAT_MODEL_DATA)) {
+        if (event.getSlotType() == InventoryType.SlotType.ARMOR && isAnyHat(event.getCurrentItem())) {
             event.setResult(Event.Result.DENY);
             event.setCancelled(true);
         }
+    }
 
+    @EventHandler
+    public void onPlayerItemDropEvent(@NotNull PlayerDropItemEvent event) {
+        if (isAnyHat(event.getItemDrop().getItemStack())) event.setCancelled(true);
+    }
+
+    private void setCosmetics(Player player) {
+        if (!ConfigUtil.getMainConfig().getCosmeticSection().enabled()) return;
+
+        List<CosmeticDetailSection> hats = ConfigUtil.getMainConfig().getCosmeticSection().hats();
+
+        for (CosmeticDetailSection hat : hats) {
+            if (player.hasPermission(hat.permission())) setHat(player, hat);
+            else removeHat(player, hat);
+        }
+    }
+
+    private void setHat(Player player, CosmeticDetailSection hat) {
+        player.getInventory().setHelmet(new ItemBuilder(Material.PAPER)
+                .setName(Component.text(hat.name(), NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .setItemModel(hat.modelData())
+                .build());
+    }
+
+    private void removeHat(Player player, CosmeticDetailSection hat) {
+        if (!isHat(player.getInventory().getHelmet(), hat)) return;
+        player.getInventory().setHelmet(null);
+    }
+
+    private boolean isHat(ItemStack item, CosmeticDetailSection hat) {
+        if (item == null) return false;
+        if (!(item.displayName() instanceof TextComponent text)) return false;
+        if (!text.content().equals(hat.name())) return false;
+        return item.getItemMeta().getCustomModelDataComponent().getStrings().contains(hat.modelData());
+    }
+
+    private boolean isAnyHat(ItemStack item) {
+        for (CosmeticDetailSection hat : ConfigUtil.getMainConfig().getCosmeticSection().hats()) {
+            if (isHat(item, hat)) return true;
+        }
+        return false;
     }
 }

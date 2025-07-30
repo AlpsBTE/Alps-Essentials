@@ -6,11 +6,10 @@
 
 # Chat Formatting
 chat-format:
-  info-prefix: ''
-  alert-prefix: ''
-  arrow: '<dark_gray> » </dark_gray>'
+  info-prefix: ' <dark_gray> » </dark_gray>'
+  alert-prefix: ' <dark_gray> » </dark_gray>'
 
-# Spawn
+# Spawn Location
 spawn:
   world: 'Hub'
   x: 550.5
@@ -21,31 +20,37 @@ spawn:
 
 # Servers
 servers:
-  plot:
-    plot-name: 'ALPS-1'
-    plot-IP: localhost
-    plot-port: 00000
-  terra:
-    terra-name: 'ALPS-2'
-    terra-IP: localhost
-    terra-port: 00000
+  - name: 'ALPS-1'
+    address: 'localhost'
+    port: 0000
+  - name: 'ALPS-2'
+    address: 'localhost'
+    port: 0000
 
 # Enable/Disable Commands
-cmd-hub: false
-cmd-spawn: true
-cmd-switch: true
-cmd-tpp: true
-cmd-speed: true
-cmd-ptime: true
-cmd-pweather: true
+commands:
+  hub: true
+  spawn: true
+  switch: true
+  tpp: true
+  speed: true
+  ptime: true
+  pweather: true
 
-# Others
+# Enable/Disable join and leave messages
 send-join-leave-message: false
+
+# Teleport the player to the configured spawn location on join
 teleport-player-to-spawn-on-join: false
 
 # Cosmetics
-cosmetic-patreon-hat-model-data: ""
-
+cosmetics:
+  enabled: true
+  hats:
+    - name: 'Hard Hat'
+      permission: ''
+      material: 'PAPER'
+      model-data: ''
 
 # NOTE: Do not change
-config-version: 1.5
+version: 1

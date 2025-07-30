@@ -2,6 +2,7 @@ package com.alpsbte.essentials.commands;
 
 import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
+import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
@@ -20,6 +21,10 @@ import java.util.List;
 
 @SuppressWarnings("UnstableApiUsage")
 public class SpawnCmd implements AlpsCommand {
+    @Override
+    public boolean isEnabled() {
+        return ConfigUtil.getMainConfig().getCommandSection().enableSpawn();
+    }
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("spawn")

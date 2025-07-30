@@ -1,6 +1,7 @@
 package com.alpsbte.essentials.commands;
 
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
+import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
@@ -16,6 +17,10 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
 public class PWeatherCmd implements AlpsCommand {
+    @Override
+    public boolean isEnabled() {
+        return ConfigUtil.getMainConfig().getCommandSection().enablePWeather();
+    }
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
         return Commands.literal("pweather")

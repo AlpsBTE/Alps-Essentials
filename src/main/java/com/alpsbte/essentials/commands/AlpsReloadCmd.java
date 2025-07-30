@@ -19,6 +19,10 @@ import static net.kyori.adventure.text.Component.text;
 
 @SuppressWarnings("UnstableApiUsage")
 public class AlpsReloadCmd implements AlpsCommand {
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {

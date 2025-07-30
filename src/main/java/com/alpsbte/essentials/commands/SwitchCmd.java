@@ -1,9 +1,11 @@
 package com.alpsbte.essentials.commands;
 
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
+import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.Server;
 import com.alpsbte.essentials.utils.ServerUtils;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -12,14 +14,25 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @SuppressWarnings("UnstableApiUsage")
 public class SwitchCmd implements AlpsCommand {
     @Override
+    public boolean isEnabled() {
+        return ConfigUtil.getMainConfig().getCommandSection().enableSwitch();
+    }
+
+    @Override
     public @NotNull LiteralCommandNode<CommandSourceStack> node() {
-        return Commands.literal("switch")
-                .requires(stack -> this.canUseAndIsPlayer(stack.getSender()))
-                .then(Commands.literal("hub").executes(this::executeHub))
-                .then(Commands.literal("terra").executes(this::executeTerra)).build();
+        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal("switch")
+                .requires(stack -> this.canUseAndIsPlayer(stack.getSender()));
+
+        List<Server> servers = ServerUtils.getAllServers();
+        for (Server s: servers) {
+            builder = builder.then(Commands.literal(s.getName()).executes(ctx -> execute(ctx, s)));
+        }
+        return builder.build();
     }
 
     @Override
@@ -27,13 +40,8 @@ public class SwitchCmd implements AlpsCommand {
         return "Switches to another server.";
     }
 
-    private int executeHub(CommandContext<CommandSourceStack> ctx) {
-        ServerUtils.connectToServer(Server.HUB_PLOT, (Player) ctx.getSource().getSender());
-        return Command.SINGLE_SUCCESS;
-    }
-
-    private int executeTerra(CommandContext<CommandSourceStack> ctx) {
-        ServerUtils.connectToServer(Server.TERRA, (Player) ctx.getSource().getSender());
+    private int execute(CommandContext<CommandSourceStack> ctx, Server server) {
+        ServerUtils.connectToServer(server, (Player) ctx.getSource().getSender());
         return Command.SINGLE_SUCCESS;
     }
 

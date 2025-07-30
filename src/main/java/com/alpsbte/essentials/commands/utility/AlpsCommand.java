@@ -11,6 +11,8 @@ import java.util.Collections;
 
 @SuppressWarnings("UnstableApiUsage")
 public interface AlpsCommand {
+    boolean isEnabled();
+
     /**
      * The permission prefix for all commands.
      */

@@ -1,23 +1,22 @@
 package com.alpsbte.essentials;
 
 import com.alpsbte.alpslib.io.YamlFileFactory;
-import com.alpsbte.alpslib.io.config.ConfigNotImplementedException;
 import com.alpsbte.essentials.commands.utility.CommandLauncher;
+import com.alpsbte.essentials.config.section.SpawnSection;
 import com.alpsbte.essentials.utils.ChatUtils;
-import com.alpsbte.essentials.utils.Server;
-import com.alpsbte.essentials.utils.io.ConfigPaths;
-import com.alpsbte.essentials.utils.io.ConfigUtil;
+import com.alpsbte.essentials.config.ConfigUtil;
+import com.alpsbte.essentials.utils.ServerUtils;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.google.common.io.ByteStreams;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.configurate.ConfigurateException;
 
 import java.util.Objects;
 
@@ -30,7 +29,7 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
         try {
             YamlFileFactory.registerPlugin(this);
             ConfigUtil.init();
-        } catch (ConfigNotImplementedException ex) {
+        } catch (ConfigurateException ex) {
             this.getComponentLogger().warn(Component.text("Could not load configuration file."));
             Bukkit.getConsoleSender().sendMessage(Component.text("The config file must be configured!", NamedTextColor.YELLOW));
             this.getServer().getPluginManager().disablePlugin(this);
@@ -53,9 +52,9 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
     }
 
     @Override
-    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] message) {
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte @NotNull [] message) {
         if (!channel.equals(PLUGIN_CHANNEL)) return;
-        Server.setPlayerData(ByteStreams.newDataInput(message));
+        ServerUtils.setPlayerData(ByteStreams.newDataInput(message));
     }
 
     public static AlpsEssentials getPlugin() {
@@ -63,28 +62,24 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
     }
 
     @Override
-    public @NotNull FileConfiguration getConfig() {
-        return ConfigUtil.getInstance().configs[0];
-    }
-
-    @Override
     public void reloadConfig() {
-        ConfigUtil.getInstance().reloadFiles();
-        ConfigUtil.getInstance().saveFiles();
-        ChatUtils.setChatFormat(ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_INFO_PREFIX),
-                ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_ALERT_PREFIX),
-                ConfigUtil.getInstance().configs[0].getString(ConfigPaths.CHAT_FORMAT_ARROW));
-        Server.setConfigData();
+        try {
+            ConfigUtil.reloadAllConfigs();
+        } catch (ConfigurateException e) {
+            getComponentLogger().error("Could not reload config files!", e);
+        }
+        ChatUtils.updateChatFormat();
+        ServerUtils.configureServers();
     }
 
     public static Location getSpawnLocation() {
-        FileConfiguration config = getPlugin().getConfig();
+        SpawnSection spawnConfig = ConfigUtil.getMainConfig().getSpawnSection();
         return new Location(
-                Bukkit.getWorld(Objects.requireNonNull(config.getString(ConfigPaths.SPAWN_WORLD))),
-                config.getDouble(ConfigPaths.SPAWN_X),
-                config.getDouble(ConfigPaths.SPAWN_Y),
-                config.getDouble(ConfigPaths.SPAWN_Z),
-                (float) config.getDouble(ConfigPaths.SPAWN_YAW),
-                (float) config.getDouble(ConfigPaths.SPAWN_PITCH));
+                Bukkit.getWorld(Objects.requireNonNull(spawnConfig.world())),
+                spawnConfig.x(),
+                spawnConfig.y(),
+                spawnConfig.z(),
+                (float) spawnConfig.yaw(),
+                (float) spawnConfig.pitch());
     }
 }
