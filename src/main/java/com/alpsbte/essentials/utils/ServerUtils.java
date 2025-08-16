@@ -67,7 +67,6 @@ public class ServerUtils {
     }
 
     public static boolean checkForConnection(Server server) {
-        if (!Server.isConfigDataSet()) return false;
         try (Socket s = new Socket()) {
             s.connect(new InetSocketAddress(server.getAddress(), server.getPort()), 30);
             return true;

@@ -1,11 +1,12 @@
 package com.alpsbte.essentials.utils;
 
+import com.alpsbte.essentials.AlpsEssentials;
+
 public class Server {
     private final String name;
     private final String address;
     private final int port;
     private int onlinePlayers = 0;
-    private static final boolean CONFIG_DATA_SET = false;
 
     Server(String name, String address, int port) {
         this.name = name;
@@ -32,9 +33,5 @@ public class Server {
 
     public void setOnlinePlayers(int amount) {
         onlinePlayers = amount;
-    }
-
-    public static boolean isConfigDataSet() {
-        return CONFIG_DATA_SET;
     }
 }
