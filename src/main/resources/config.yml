@@ -52,5 +52,12 @@ cosmetics:
       material: 'PAPER'
       model-data: ''
 
+# Configurable donation message
+donation-message:
+  enabled: true
+  # After how many minutes the message should be shown
+  minutes: 10
+  url: "https://www.tipeeestream.com/alps-bte/donation"
+
 # NOTE: Do not change
-version: 1
+version: 1.1

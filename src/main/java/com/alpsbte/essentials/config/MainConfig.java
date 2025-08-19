@@ -41,6 +41,10 @@ public class MainConfig {
     @Setting("cosmetics")
     private CosmeticSection cosmetics;
 
+    @Comment("Configurable donation message")
+    @Setting("donation-message")
+    private DonationSection donation;
+
     @SuppressWarnings("unused")
     @Comment("NOTE: Do not change!")
     @Setting("version")
@@ -63,5 +67,9 @@ public class MainConfig {
 
     public CosmeticSection getCosmeticSection() {
         return cosmetics;
+    }
+
+    public DonationSection getDonationSection() {
+        return donation;
     }
 }
