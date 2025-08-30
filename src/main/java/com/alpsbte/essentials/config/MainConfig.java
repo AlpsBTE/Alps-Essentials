@@ -48,7 +48,7 @@ public class MainConfig {
     @SuppressWarnings("unused")
     @Comment("NOTE: Do not change!")
     @Setting("version")
-    private int version;
+    private String version;
 
     public ChatSection getChatSection() {return chat;}
 
