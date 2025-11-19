@@ -27,6 +27,8 @@ servers:
     address: 'localhost'
     port: 0000
 
+hub-server: 'ALPS-1'
+
 # Enable/Disable Commands
 commands:
   hub: true
