@@ -1,6 +1,7 @@
 package com.alpsbte.essentials.config;
 
 import com.alpsbte.essentials.config.section.*;
+import org.bukkit.entity.Player;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
@@ -37,6 +38,10 @@ public class MainConfig {
     @Setting("teleport-player-to-spawn-on-join")
     private boolean teleportToSpawnOnJoin;
 
+    @Comment("Teleport the player to the configured spawn location on first join")
+    @Setting("teleport-player-to-spawn-on-first-join")
+    private boolean teleportToSpawnOnFirstJoin;
+
     @Comment("Cosmetics")
     @Setting("cosmetics")
     private CosmeticSection cosmetics;
@@ -64,6 +69,8 @@ public class MainConfig {
     public boolean getSendJoinLeaveMessage() {return sendJoinLeaveMessage;}
 
     public boolean getTeleportToSpawnOnJoin() {return teleportToSpawnOnJoin;}
+
+    public boolean getTeleportToSpawnOnFirstJoin(Player p ) {return teleportToSpawnOnFirstJoin && !p.hasPlayedBefore();}
 
     public CosmeticSection getCosmeticSection() {
         return cosmetics;

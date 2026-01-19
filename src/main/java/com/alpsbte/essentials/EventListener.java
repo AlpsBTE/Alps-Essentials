@@ -38,7 +38,7 @@ public class EventListener implements Listener {
         if (!ConfigUtil.getMainConfig().getSendJoinLeaveMessage()) event.joinMessage(null);
 
         // Teleport to the spawn point
-        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || !event.getPlayer().hasPlayedBefore()) {
+        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || ConfigUtil.getMainConfig().getTeleportToSpawnOnFirstJoin(event.getPlayer())) {
             event.getPlayer().teleport(AlpsEssentials.getSpawnLocation());
         }
 

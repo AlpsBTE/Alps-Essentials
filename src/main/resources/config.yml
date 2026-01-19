@@ -31,10 +31,10 @@ hub-server: 'ALPS-1'
 
 # Enable/Disable Commands
 commands:
-  hub: true
-  spawn: true
-  switch: true
-  tpp: true
+  hub: false
+  spawn: false
+  switch: false
+  tpp: false
   speed: true
   ptime: true
   pweather: true
@@ -45,9 +45,12 @@ send-join-leave-message: false
 # Teleport the player to the configured spawn location on join
 teleport-player-to-spawn-on-join: false
 
+# Teleport the player to the configured spawn location on first join
+teleport-player-to-spawn-on-first-join: false;
+
 # Cosmetics
 cosmetics:
-  enabled: true
+  enabled: false
   hats:
     - name: 'Hard Hat'
       permission: ''
@@ -56,7 +59,7 @@ cosmetics:
 
 # Configurable donation message
 donation-message:
-  enabled: true
+  enabled: false
   # After how many minutes the message should be shown
   minutes: 10
   url: "https://www.tipeeestream.com/alps-bte/donation"
