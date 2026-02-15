@@ -15,7 +15,16 @@ public class LangUtil extends LanguageUtil {
         Plugin plugin = AlpsEssentials.getPlugin();
         LangLibAPI.register(plugin, new LanguageFile[]{
                 new LanguageFile(plugin, 1.0, Language.en_GB),
-                new LanguageFile(plugin, 1.0, Language.de_DE)
+                new LanguageFile(plugin, 1.0, Language.de_DE),
+                new LanguageFile(plugin, 1.0, Language.da_DK),
+                new LanguageFile(plugin, 1.0, Language.fr_FR),
+                new LanguageFile(plugin, 1.0, Language.he_IL),
+                new LanguageFile(plugin, 1.0, Language.hu_HU),
+                new LanguageFile(plugin, 1.0, Language.it_IT),
+                new LanguageFile(plugin, 1.0, Language.nl_NL),
+                new LanguageFile(plugin, 1.0, Language.pt_PT),
+                new LanguageFile(plugin, 1.0, Language.zh_CN),
+                new LanguageFile(plugin, 1.0, Language.zh_TW)
         });
         langUtilInstance = new LangUtil();
     }

@@ -1,0 +1,24 @@
+#-----------------------------------------------------
+#|         Alps-Essentials - by Alps BTE
+#-----------------------------------------------------
+#| [Github Repo] https://github.com/AlpsBTE/PlotSystem
+#| [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
+#| [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
+#|
+#| [Formatting] Use %newline% for a newline
+#| [Formatting] Words that are wrapped in the {number} tag are replaced afterward
+#-----------------------------------------------------
+teleporting-to-player: '傳送至玩家...'
+teleporting-to-spawn: '傳送至重生點...'
+set-player-speed: '你的速度已設定為 {0}。'
+set-player-time: '你的時間已設定為 {0}。'
+set-player-time-synchronized: '你的時間已和伺服器同步。'
+set-player-weather: '你的天氣已設定為 {0}。'
+set-player-weather-synchronized: '你的天氣已和伺服器同步。'
+connect-to-server: '連線至伺服器'
+connecting-to-server: '正在連線至伺服器…'
+server-is-offline: '伺服器已離線...'
+command-usage: '用法'
+successfully-reloaded-plugin: '成功重新載入外掛程式'
+#NOTE: Do not change
+config-version: 1.0

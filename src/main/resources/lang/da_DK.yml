@@ -1,0 +1,24 @@
+#-----------------------------------------------------
+#|         Alps-Essentials - by Alps BTE
+#-----------------------------------------------------
+#| [Github Repo] https://github.com/AlpsBTE/PlotSystem
+#| [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
+#| [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
+#|
+#| [Formatting] Use %newline% for a newline
+#| [Formatting] Words that are wrapped in the {number} tag are replaced afterward
+#-----------------------------------------------------
+teleporting-to-player: 'Teleporterer til spiller...'
+teleporting-to-spawn: 'Teleporterer til spawn...'
+set-player-speed: 'Din hastighed er sat til {0}.'
+set-player-time: 'Din tid er sat til {0}.'
+set-player-time-synchronized: 'Din tid er synkroniseret med serveren.'
+set-player-weather: 'Dit vejr er sat til {0}.'
+set-player-weather-synchronized: 'Dit vejr er synkroniseret med serveren.'
+connect-to-server: 'Opret forbindelse til server'
+connecting-to-server: 'Forbinder til server...'
+server-is-offline: 'Serveren er offline...'
+command-usage: 'Brug'
+successfully-reloaded-plugin: 'Pluginet blev genindlæst'
+#NOTE: Do not change
+config-version: 1.0
