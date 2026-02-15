@@ -1,7 +1,5 @@
 package com.alpsbte.essentials.config;
 
-import com.alpsbte.alpslib.io.config.ConfigNotImplementedException;
-import com.alpsbte.alpslib.io.config.ConfigurationUtil;
 import com.alpsbte.essentials.AlpsEssentials;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
@@ -10,23 +8,27 @@ import org.spongepowered.configurate.util.NamingSchemes;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
-import java.nio.file.Paths;
+import java.io.File;
 
 public class ConfigUtil {
     private ConfigUtil() {}
 
     // Main Config
     private static MainConfig mainConfig = null;
-    private static CommentedConfigurationNode configRoot = null;
     private static YamlConfigurationLoader configLoader = null;
 
     public static void init() throws ConfigurateException {
+        File configFile = AlpsEssentials.getPlugin().getDataPath().resolve("config.yml").toFile();
+        if (!configFile.exists()) {
+            AlpsEssentials.getPlugin().saveResource("config.yml", false);
+        }
+
         final ObjectMapper.Factory customFactory = ObjectMapper.factoryBuilder()
                 .defaultNamingScheme(NamingSchemes.PASSTHROUGH)
                 .build();
 
         configLoader = YamlConfigurationLoader.builder()
-                .path(AlpsEssentials.getPlugin().getDataPath().resolve("config.yml"))
+                .file(configFile)
                 .nodeStyle(NodeStyle.BLOCK)
                 .defaultOptions(opts -> opts.serializers(build -> build.registerAnnotatedObjects(customFactory)))
                 .build();
@@ -35,7 +37,7 @@ public class ConfigUtil {
     }
 
     private static void loadConfigFiles() throws ConfigurateException {
-        configRoot = configLoader.load();
+        CommentedConfigurationNode configRoot = configLoader.load();
         mainConfig = configRoot.get(MainConfig.class);
     }
 

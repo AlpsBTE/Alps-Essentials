@@ -6,7 +6,7 @@ import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
-import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
+import io.papermc.paper.util.Tick;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -26,10 +26,10 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Duration;
 import java.util.List;
 
 public class EventListener implements Listener {
@@ -38,7 +38,7 @@ public class EventListener implements Listener {
         if (!ConfigUtil.getMainConfig().getSendJoinLeaveMessage()) event.joinMessage(null);
 
         // Teleport to the spawn point
-        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || !event.getPlayer().hasPlayedBefore()) {
+        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || ConfigUtil.getMainConfig().getTeleportToSpawnOnFirstJoin(event.getPlayer())) {
             event.getPlayer().teleport(AlpsEssentials.getSpawnLocation());
         }
 
@@ -53,6 +53,8 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onPlayerJoinShowDonationMessage(PlayerJoinEvent event) {
+        var config = ConfigUtil.getMainConfig().getDonationSection();
+        if (!config.enabled()) return;
         Bukkit.getScheduler().scheduleSyncDelayedTask(AlpsEssentials.getPlugin(), () -> {
             Player p = event.getPlayer();
 
@@ -71,12 +73,12 @@ public class EventListener implements Listener {
             p.sendMessage("");
             p.sendMessage(Component.text("» ", NamedTextColor.DARK_GRAY)
                     .append(Component.text(link, NamedTextColor.GREEN)
-                            .clickEvent(ClickEvent.openUrl("https://www.tipeeestream.com/alps-bte/donation"))
+                            .clickEvent(ClickEvent.openUrl(config.url()))
                             .hoverEvent(HoverEvent.showText(Component.text(linkHover, NamedTextColor.GRAY)))));
             p.sendMessage("");
             p.sendMessage(Component.text(thanks, NamedTextColor.GRAY));
             p.sendMessage("");
-        }, 20 * 60 * 10L); // in 10 minutes
+        }, Tick.tick().fromDuration(Duration.ofMinutes(config.minutes())));
     }
 
     @EventHandler

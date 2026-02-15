@@ -30,8 +30,9 @@ public final class AlpsEssentials extends JavaPlugin implements PluginMessageLis
             YamlFileFactory.registerPlugin(this);
             ConfigUtil.init();
         } catch (ConfigurateException ex) {
-            this.getComponentLogger().warn(Component.text("Could not load configuration file."));
-            Bukkit.getConsoleSender().sendMessage(Component.text("The config file must be configured!", NamedTextColor.YELLOW));
+            this.getComponentLogger().warn(Component.text("Could not load configuration file.")
+                    .append(Component.text("The config file must be configured!", NamedTextColor.YELLOW)),
+                    ex);
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }

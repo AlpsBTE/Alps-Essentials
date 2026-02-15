@@ -1,0 +1,24 @@
+#-----------------------------------------------------
+#|         Alps-Essentials - by Alps BTE
+#-----------------------------------------------------
+#| [Github Repo] https://github.com/AlpsBTE/PlotSystem
+#| [Config Documentation] https://github.com/AlpsBTE/PlotSystem/wiki/Configuration
+#| [Contacts - Discord] R3tuxn#7169, Cinnazeyy#2440
+#|
+#| [Formatting] Use %newline% for a newline
+#| [Formatting] Words that are wrapped in the {number} tag are replaced afterward
+#-----------------------------------------------------
+teleporting-to-player: 'Teleportálás a játékoshoz...'
+teleporting-to-spawn: 'Teleportálás a Kezdőponthoz...'
+set-player-speed: 'A sebességed {0} -ra/re lett állítva.'
+set-player-time: 'A játékbeli időd {0} -ra/re lett állítva.'
+set-player-time-synchronized: 'Az időd szinkronizálva lett a szerverrel.'
+set-player-weather: 'Az időjárás nálad {0} -ra/re lett állítva.'
+set-player-weather-synchronized: 'Az időjárásod szinkronizálva lett a szerverrel.'
+connect-to-server: 'Kapcsolódás a szerverhez'
+connecting-to-server: 'Kapcsolódás a szerverhez...'
+server-is-offline: 'A szerver offline van...'
+command-usage: 'Használat'
+successfully-reloaded-plugin: 'Plugin sikeresen újraindítva.'
+#NOTE: Do not change
+config-version: 1.0
