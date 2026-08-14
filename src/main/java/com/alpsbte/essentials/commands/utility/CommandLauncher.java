@@ -35,6 +35,7 @@ public class CommandLauncher {
             new SpawnCmd(),
             new SwitchCmd(),
             new SpeedCmd(),
+            new ScaleCmd(),
             new PTimeCmd(),
             new PWeatherCmd(),
             new AlpsReloadCmd(),

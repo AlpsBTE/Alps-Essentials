@@ -11,6 +11,7 @@
 teleporting-to-player: 'Teleportiere zum Spieler...'
 teleporting-to-spawn: 'Teleportiere zum Spawn...'
 set-player-speed: 'Deine Geschwindigkeit wurde zu {0} geändert.'
+set-player-scale: 'Deine Grösse wurde zu {0} geändert.'
 set-player-time: 'Deine Zeit wurde auf {0} gesetzt.'
 set-player-time-synchronized: 'Deine Zeit wurde mit dem Server synchronisiert.'
 set-player-weather: 'Dein Wetter wurde auf {0} gesetzt.'

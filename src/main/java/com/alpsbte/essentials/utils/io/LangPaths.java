@@ -4,6 +4,7 @@ public abstract class LangPaths {
     public static final String TELEPORTING_TO_PLAYER = "teleporting-to-player";
     public static final String TELEPORTING_TO_SPAWN = "teleporting-to-spawn";
     public static final String SET_PLAYER_SPEED = "set-player-speed";
+    public static final String SET_PLAYER_SCALE = "set-player-scale";
     public static final String SET_PLAYER_TIME = "set-player-time";
     public static final String SET_PLAYER_TIME_SYNCHRONIZED = "set-player-time-synchronized";
     public static final String SET_PLAYER_WEATHER = "set-player-weather";

@@ -11,6 +11,7 @@
 teleporting-to-player: '正在传送到玩家...'
 teleporting-to-spawn: '正在传送到生成...'
 set-player-speed: '您的速度已设置为 {0}。'
+set-player-scale: '您的尺寸已设置为 {0}。'
 set-player-time: '您的时间已设置为 {0}。'
 set-player-time-synchronized: '您的时间已经与服务器同步。'
 set-player-weather: '您的天气已设置为 {0}。'

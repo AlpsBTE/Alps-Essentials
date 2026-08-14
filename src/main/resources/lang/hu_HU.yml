@@ -11,6 +11,7 @@
 teleporting-to-player: 'Teleportálás a játékoshoz...'
 teleporting-to-spawn: 'Teleportálás a Kezdőponthoz...'
 set-player-speed: 'A sebességed {0} -ra/re lett állítva.'
+set-player-scale: 'A méreted {0} -ra/re lett állítva.'
 set-player-time: 'A játékbeli időd {0} -ra/re lett állítva.'
 set-player-time-synchronized: 'Az időd szinkronizálva lett a szerverrel.'
 set-player-weather: 'Az időjárás nálad {0} -ra/re lett állítva.'

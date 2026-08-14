@@ -36,6 +36,7 @@ commands:
   switch: false
   tpp: false
   speed: true
+  scale: true
   ptime: true
   pweather: true
 

@@ -11,6 +11,7 @@
 teleporting-to-player: 'Teleportando para o terreno §§a...'
 teleporting-to-spawn: 'Teleportando para o spawn...'
 set-player-speed: 'Sua velocidade foi definida para {0}.'
+set-player-scale: 'A sua dimensão foi definida para {0}.'
 set-player-time: 'Seu tempo foi definido para {0}.'
 set-player-time-synchronized: 'Seu tempo foi sincronizado com o servidor.'
 set-player-weather: 'Seu tempo foi definido para {0}.'

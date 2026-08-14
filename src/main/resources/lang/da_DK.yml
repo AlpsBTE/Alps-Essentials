@@ -11,6 +11,7 @@
 teleporting-to-player: 'Teleporterer til spiller...'
 teleporting-to-spawn: 'Teleporterer til spawn...'
 set-player-speed: 'Din hastighed er sat til {0}.'
+set-player-scale: 'Din skala er sat til {0}.'
 set-player-time: 'Din tid er sat til {0}.'
 set-player-time-synchronized: 'Din tid er synkroniseret med serveren.'
 set-player-weather: 'Dit vejr er sat til {0}.'

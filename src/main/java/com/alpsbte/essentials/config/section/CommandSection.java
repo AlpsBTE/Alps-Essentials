@@ -15,6 +15,8 @@ public record CommandSection(
         boolean enableTpp,
         @Setting("speed")
         boolean enableSpeed,
+        @Setting("scale")
+        boolean enableScale,
         @Setting("ptime")
         boolean enablePTime,
         @Setting("pweather")

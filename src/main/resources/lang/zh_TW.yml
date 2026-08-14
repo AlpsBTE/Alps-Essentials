@@ -11,6 +11,7 @@
 teleporting-to-player: '傳送至玩家...'
 teleporting-to-spawn: '傳送至重生點...'
 set-player-speed: '你的速度已設定為 {0}。'
+set-player-scale: '你的尺寸已設定為 {0}。'
 set-player-time: '你的時間已設定為 {0}。'
 set-player-time-synchronized: '你的時間已和伺服器同步。'
 set-player-weather: '你的天氣已設定為 {0}。'
