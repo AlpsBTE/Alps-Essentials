@@ -11,6 +11,7 @@
 teleporting-to-player: 'Teleportálás a játékoshoz...'
 teleporting-to-spawn: 'Teleportálás a Kezdőponthoz...'
 set-player-speed: 'A sebességed {0} -ra/re lett állítva.'
+set-player-scale: 'A méreted {0} -ra/re lett állítva.'
 set-player-time: 'A játékbeli időd {0} -ra/re lett állítva.'
 set-player-time-synchronized: 'Az időd szinkronizálva lett a szerverrel.'
 set-player-weather: 'Az időjárás nálad {0} -ra/re lett állítva.'
@@ -20,5 +21,10 @@ connecting-to-server: 'Kapcsolódás a szerverhez...'
 server-is-offline: 'A szerver offline van...'
 command-usage: 'Használat'
 successfully-reloaded-plugin: 'Plugin sikeresen újraindítva.'
+link-hover: 'Click to open link...'
+donation-message-introduction: 'Are you enjoying your stay on Alps BTE?'
+donation-message-text: 'If so, please consider donating. We rely entirely on your donations to keep this network running, so any donation, no matter how big or small is greatly appreciated!'
+donation-message-link: 'Click here to donate.'
+donation-message-thanks: 'Thank you! :)'
 #NOTE: Do not change
-config-version: 1.0
+config-version: 1
