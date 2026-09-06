@@ -70,7 +70,7 @@ public class MainConfig {
 
     public boolean getTeleportToSpawnOnJoin() {return teleportToSpawnOnJoin;}
 
-    public boolean getTeleportToSpawnOnFirstJoin(Player p ) {return teleportToSpawnOnFirstJoin && !p.hasPlayedBefore();}
+    public boolean getTeleportToSpawnOnFirstJoin() {return teleportToSpawnOnFirstJoin;}
 
     public CosmeticSection getCosmeticSection() {
         return cosmetics;

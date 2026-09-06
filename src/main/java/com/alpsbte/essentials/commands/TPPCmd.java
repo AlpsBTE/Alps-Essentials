@@ -3,6 +3,7 @@ package com.alpsbte.essentials.commands;
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
 import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.ChatUtils;
+import com.alpsbte.essentials.utils.TeleportationUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.mojang.brigadier.Command;
@@ -49,10 +50,11 @@ public class TPPCmd implements AlpsCommand {
         Player targetPlayer = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
         Player executor = (Player) ctx.getSource().getExecutor();
 
-        if (executor != null) {
-            executor.teleport(targetPlayer);
+        if (executor != null && TeleportationUtils.teleport(executor, targetPlayer.getLocation())) {
             executor.playSound(executor, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
             executor.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(executor, LangPaths.TELEPORTING_TO_PLAYER)));
+        } else {
+            executor.sendMessage(ChatUtils.getAlertMessageFormat(LangUtil.getInstance().get(executor, LangPaths.TELEPORTATION_FAILED)));
         }
         return Command.SINGLE_SUCCESS;
     }

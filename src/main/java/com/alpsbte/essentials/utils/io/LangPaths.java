@@ -23,4 +23,5 @@ public abstract class LangPaths {
     public static final String DONATION_MESSAGE_THANKS = "donation-message-thanks";
 
     public static final String SUCCESSFULLY_RELOADED_PLUGIN = "successfully-reloaded-plugin";
+    public static final String TELEPORTATION_FAILED = "teleportation-failed";
 }

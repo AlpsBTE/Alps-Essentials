@@ -6,6 +6,7 @@ import com.alpsbte.essentials.utils.ChatUtils;
 import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
+import io.papermc.paper.event.player.AsyncPlayerSpawnLocationEvent;
 import io.papermc.paper.util.Tick;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -37,13 +38,17 @@ public class EventListener implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         if (!ConfigUtil.getMainConfig().getSendJoinLeaveMessage()) event.joinMessage(null);
 
-        // Teleport to the spawn point
-        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() || ConfigUtil.getMainConfig().getTeleportToSpawnOnFirstJoin(event.getPlayer())) {
-            event.getPlayer().teleport(AlpsEssentials.getSpawnLocation());
-        }
-
         // Check for patreon hat cosmetic
         setCosmetics(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerSpawnLocationEvent(AsyncPlayerSpawnLocationEvent event) {
+        // Teleport to the spawn point
+        if (ConfigUtil.getMainConfig().getTeleportToSpawnOnJoin() ||
+                (ConfigUtil.getMainConfig().getTeleportToSpawnOnFirstJoin()) && event.isNewPlayer()) {
+            event.setSpawnLocation(AlpsEssentials.getSpawnLocation());
+        }
     }
 
     @EventHandler

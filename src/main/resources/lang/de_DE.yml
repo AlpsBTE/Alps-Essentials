@@ -26,5 +26,6 @@ donation-message-introduction: 'Geniesst du deinen Aufenthalt auf Alps BTE?'
 donation-message-text: 'Wenn ja, würden wir uns auf eine Spende freuen! Wir sind vollständig auf Spenden angewiesen, um dieses Netzwerk am Laufen zu halten, daher Freuen wir uns auf jede Unterstützung, egal wie gross oder klein!'
 donation-message-link: 'Klicke hier um zu spenden.'
 donation-message-thanks: 'Vielen Dank! :)'
+teleportation-failed: 'Teleportation fehlgeschlagen!'
 #NOTE: Do not change
 config-version: 1.0

@@ -4,6 +4,7 @@ import com.alpsbte.essentials.AlpsEssentials;
 import com.alpsbte.essentials.commands.utility.AlpsCommand;
 import com.alpsbte.essentials.config.ConfigUtil;
 import com.alpsbte.essentials.utils.ChatUtils;
+import com.alpsbte.essentials.utils.TeleportationUtils;
 import com.alpsbte.essentials.utils.io.LangPaths;
 import com.alpsbte.essentials.utils.io.LangUtil;
 import com.mojang.brigadier.Command;
@@ -44,10 +45,13 @@ public class SpawnCmd implements AlpsCommand {
     }
 
     private int execute(CommandContext<CommandSourceStack> ctx) {
-        if (ctx.getSource().getSender() instanceof Player player) {
-            player.teleport(AlpsEssentials.getSpawnLocation());
+        if (!(ctx.getSource().getSender() instanceof Player player)) return Command.SINGLE_SUCCESS;
+
+        if (TeleportationUtils.teleport(player, AlpsEssentials.getSpawnLocation())) {
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1f);
             player.sendMessage(ChatUtils.getInfoMessageFormat(LangUtil.getInstance().get(player, LangPaths.TELEPORTING_TO_SPAWN)));
+        } else {
+            player.sendMessage(ChatUtils.getAlertMessageFormat(LangUtil.getInstance().get(player, LangPaths.TELEPORTATION_FAILED)));
         }
         return Command.SINGLE_SUCCESS;
     }
